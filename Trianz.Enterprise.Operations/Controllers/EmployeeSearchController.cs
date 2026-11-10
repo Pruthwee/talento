@@ -1,7 +1,6 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -151,7 +150,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             }
             if (searchskill!="")
             {
-                var Percentagevalue = ConfigurationManager.AppSettings["Percentage"].ToString();
+                var Percentagevalue = ParameterStoreConfig.GetAppSetting("Percentage").ToString();
                 obj.EmpSkillInfo = obj.EmpSkillInfo.Where(m => (int)m.Percentage >= Convert.ToInt32(Percentagevalue)).ToList();
                 obj.EmpSkillInfo = obj.EmpSkillInfo.OrderBy(m => String.IsNullOrEmpty(m.BillingStatus)).ThenBy(m => m.BillingStatus).ThenByDescending(m => m.Percentage).ToList();
             }
@@ -302,7 +301,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     int count = skillcount2.Intersect(skillcount1).Count();
                     m.Percentage = ((decimal)count / skillcount1.Count()) * 100;
                 });
-                var Percentagevalue = ConfigurationManager.AppSettings["Percentage"].ToString();
+                var Percentagevalue = ParameterStoreConfig.GetAppSetting("Percentage").ToString();
                 obj.EmpSkillInfo = obj.EmpSkillInfo.Where(m => (int)m.Percentage >= Convert.ToInt32(Percentagevalue)).ToList();
                 
                 // obj.EmpSkillInfo = obj.EmpSkillInfo.OrderBy(m => m.BillingStatus).ThenByDescending(m => m.Percentage).ToList();
@@ -398,7 +397,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             try
             {
                 var result = new List<KeyValuePair<string, string>>();
-                DateTime dt = DateTime.Now;
+                DateTime dt = DateTime.UtcNow;
                 IList<SelectListItem> List = new List<SelectListItem>();
 
                 var Empdetails = (from pro in db.Employees
@@ -433,7 +432,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             {
                 Searchskill = "";
             }
-            string SmtpuserCommon = ConfigurationManager.AppSettings["EmailFrom"];
+            string SmtpuserCommon = ParameterStoreConfig.GetAppSetting("EmailFrom");
             string billingStatus;
             if (ddlStatus == null || ddlStatus == "" || ddlStatus == "Select Status")
             {
@@ -483,10 +482,10 @@ namespace Trianz.Enterprise.Operations.Controllers
             {
                 #region "Mail"
 
-                string portNo = ConfigurationManager.AppSettings["PortNo"];
-                string host = ConfigurationManager.AppSettings["HostNo"];
-                string Smtpuser = ConfigurationManager.AppSettings["awssmtpUser"];
-                string Smtppassword = ConfigurationManager.AppSettings["awssmtpPass"];
+                string portNo = ParameterStoreConfig.GetAppSetting("PortNo");
+                string host = ParameterStoreConfig.GetAppSetting("HostNo");
+                string Smtpuser = ParameterStoreConfig.GetAppSetting("awssmtpUser");
+                string Smtppassword = ParameterStoreConfig.GetAppSetting("awssmtpPass");
 
 
                 MailMessage mm = new MailMessage();
@@ -520,7 +519,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 objemail.ToMailEmpId = Emp.EmployeeId;
                                 objemail.RresourceEmpID = empId;
                                 objemail.Mailbody = message;
-                                objemail.CreatedDate = DateTime.Now;
+                                objemail.CreatedDate = DateTime.UtcNow;
                                 objemail.MailSent = "Y";
                                 db.EmailAudits.Add(objemail);
                                 db.SaveChanges();
@@ -547,7 +546,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         objemail.ToMailEmpId = Emp.EmployeeId;
                         objemail.RresourceEmpID = empId;
                         objemail.Mailbody = message;
-                        objemail.CreatedDate = DateTime.Now;
+                        objemail.CreatedDate = DateTime.UtcNow;
                         objemail.MailSent = "Y";
                         db.EmailAudits.Add(objemail);
                         db.SaveChanges();
@@ -578,12 +577,8 @@ namespace Trianz.Enterprise.Operations.Controllers
 
 
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = host;
-                smtp.Port = Convert.ToInt32(portNo);
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential(Smtpuser, Smtppassword);
-                smtp.Send(mm);
+                // Replace SmtpClient with Amazon SES
+                SESHelper.SendMailMessage(mm);
                 #endregion
 
                 return true;
@@ -960,7 +955,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     Byte[] fileBytes = package.GetAsByteArray();
                     Response.Clear();
                     Response.Buffer = true;
-                    Response.AddHeader("content-disposition", "attachment;filename=" + "EmployeeSearch" + "-Report" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                    Response.AddHeader("content-disposition", "attachment;filename=" + "EmployeeSearch" + "-Report" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                     Response.Charset = "";
                     Response.ContentType = "application/vnd.ms-excel";

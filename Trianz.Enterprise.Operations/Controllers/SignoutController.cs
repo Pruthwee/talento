@@ -30,7 +30,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                     name = User.Identity.Name;
                 }
 
-                System.Web.Security.FormsAuthentication.SignOut();
+                // Replace FormsAuthentication.SignOut with OWIN authentication
+                HttpContext.GetOwinContext().Authentication.SignOut();
 
                 cookie = new HttpCookie("TSWA-Last-User", name);
                 Response.Cookies.Set(cookie);
@@ -54,7 +55,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
             cookie = new HttpCookie("TSWA-Last-User", string.Empty)
             {
-                Expires = DateTime.Now.AddYears(-5)
+                Expires = DateTime.UtcNow.AddYears(-5)
             };
 
             Response.Cookies.Set(cookie);

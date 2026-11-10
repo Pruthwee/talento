@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Trianz.Enterprise.Operations.Models;
 using Trianz.Enterprise.Operations.ViewModel;
+using Trianz.Enterprise.Operations.General;
 
 namespace Trianz.Enterprise.Operations.Controllers
 {
@@ -286,11 +287,11 @@ namespace Trianz.Enterprise.Operations.Controllers
                     if (fileExtension == ".xls" || fileExtension == ".xlsx")
                     {
                         //string fileLocation = Server.MapPath("~/Content/") + Request.Files["file"].FileName;
-                        string fileLocation = Server.MapPath("~/Content/") + string.Format(@"{0}.xlsx", "Training" + DateTime.Now.Ticks);
-                        if (System.IO.File.Exists(fileLocation))
+                        string fileLocation = "~/Content/" + string.Format(@"{0}.xlsx", "Training" + DateTime.UtcNow.Ticks);
+                        if (CloudFileHelper.Exists(fileLocation))
                         {
 
-                            System.IO.File.Delete(fileLocation);
+                            CloudFileHelper.Delete(fileLocation);
 
                         }
                         Request.Files["file"].SaveAs(fileLocation);
@@ -300,7 +301,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         bool validtemplate = true;
                         using (ExcelPackage package = new ExcelPackage(File))
                         {
-                            System.IO.File.Delete(fileLocation);
+                            CloudFileHelper.Delete(fileLocation);
                             ExcelWorkbook workBook = package.Workbook;
                             if (workBook != null)
                             {
@@ -480,7 +481,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                             else
                                                             {
                                                                 
-                                                                    if (Convert.ToDateTime(cell.Text) > DateTime.Now.Date)
+                                                                    if (Convert.ToDateTime(cell.Text) > DateTime.UtcNow.Date)
                                                                         checkstrtdateformat = false;
                                                             }
                                                         }
@@ -496,7 +497,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                             else
                                                             {
 
-                                                                if (Convert.ToDateTime(cell.Text) > DateTime.Now.Date)
+                                                                if (Convert.ToDateTime(cell.Text) > DateTime.UtcNow.Date)
                                                                     checkenddateformat = false;
                                                             }
                                                         }
@@ -1335,7 +1336,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     Byte[] fileBytes = package.GetAsByteArray();
                     Response.Clear();
                     Response.Buffer = true;
-                    Response.AddHeader("content-disposition", "attachment;filename=" + "Training Data" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                    Response.AddHeader("content-disposition", "attachment;filename=" + "Training Data" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                     Response.Charset = "";
                     Response.ContentType = "application/vnd.ms-excel";
@@ -1391,7 +1392,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         }
         public FileResult DownloadTainingReportTemplate()
         {
-            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath(@"~\Content\Document\Training Sample Template.xlsx"));
+            byte[] fileBytes = CloudFileHelper.ReadAllBytes(@"~\Content\Document\Training Sample Template.xlsx");
             string fileName = "Training Sample Template.xlsx";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }

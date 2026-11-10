@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -17,42 +16,42 @@ namespace Trianz.Enterprise.Operations.Controllers
     {
         TrianzOperationsEntities db = new TrianzOperationsEntities();
         // Get all Constant
-        string role_OM = System.Configuration.ConfigurationManager.AppSettings["Role_OM"].ToString();
-        string role_PM = System.Configuration.ConfigurationManager.AppSettings["Role_PM"].ToString();
-        //string role_PH = System.Configuration.ConfigurationManager.AppSettings["Role_PH"].ToString();
-        string role_DH = System.Configuration.ConfigurationManager.AppSettings["Role_DH"].ToString();
-        string role_SM = System.Configuration.ConfigurationManager.AppSettings["Role_SM"].ToString();
-        string role_DM = System.Configuration.ConfigurationManager.AppSettings["Role_DM"].ToString();
-        string role_LDAdmin = System.Configuration.ConfigurationManager.AppSettings["Role_LDAdmin"].ToString();
-        string role_Finance = System.Configuration.ConfigurationManager.AppSettings["Role_Finance"].ToString();
-        string role_CompetencyAdmin = System.Configuration.ConfigurationManager.AppSettings["Role_CompetencyAdmin"].ToString();
-        string role_RL = System.Configuration.ConfigurationManager.AppSettings["Role_RL"].ToString();
+        string role_OM = ParameterStoreConfig.GetAppSetting("Role_OM").ToString();
+        string role_PM = ParameterStoreConfig.GetAppSetting("Role_PM").ToString();
+        //string role_PH = ParameterStoreConfig.GetAppSetting("Role_PH").ToString();
+        string role_DH = ParameterStoreConfig.GetAppSetting("Role_DH").ToString();
+        string role_SM = ParameterStoreConfig.GetAppSetting("Role_SM").ToString();
+        string role_DM = ParameterStoreConfig.GetAppSetting("Role_DM").ToString();
+        string role_LDAdmin = ParameterStoreConfig.GetAppSetting("Role_LDAdmin").ToString();
+        string role_Finance = ParameterStoreConfig.GetAppSetting("Role_Finance").ToString();
+        string role_CompetencyAdmin = ParameterStoreConfig.GetAppSetting("Role_CompetencyAdmin").ToString();
+        string role_RL = ParameterStoreConfig.GetAppSetting("Role_RL").ToString();
 
-        string delivery_recommend = System.Configuration.ConfigurationManager.AppSettings["D_Recommend"].ToString();
-        string practice_recommend = System.Configuration.ConfigurationManager.AppSettings["P_Recommend"].ToString();
-        string praticeAccept = System.Configuration.ConfigurationManager.AppSettings["PraticeAccept"].ToString();
-        string praticeReject = System.Configuration.ConfigurationManager.AppSettings["PraticeReject"].ToString();
-        string fulfilled = System.Configuration.ConfigurationManager.AppSettings["fulfilledStatus"].ToString();
-        string ResumePending = System.Configuration.ConfigurationManager.AppSettings["ResumePendingStatus"].ToString();
-        string emp_Assignment = System.Configuration.ConfigurationManager.AppSettings["AssignmentStatus"].ToString();
-        string qualified = System.Configuration.ConfigurationManager.AppSettings["TR_Qualified"].ToString();
-        string convertInternal = System.Configuration.ConfigurationManager.AppSettings["I_RequestType"].ToString();
-        string convertExternal = System.Configuration.ConfigurationManager.AppSettings["E_RequestType"].ToString();
-        string PendingForDHApproval = System.Configuration.ConfigurationManager.AppSettings["PendingForDHApproval"].ToString();
-        string PendingForPMApproval = System.Configuration.ConfigurationManager.AppSettings["PendingForPMApproval"].ToString();
-        string external_Accept = System.Configuration.ConfigurationManager.AppSettings["ExternalAccepted"].ToString();
-        string external_Reject = System.Configuration.ConfigurationManager.AppSettings["ExternalRejected"].ToString();
-        string requestMoreInfo = System.Configuration.ConfigurationManager.AppSettings["TR_RequestMoreInfo"].ToString();
+        string delivery_recommend = ParameterStoreConfig.GetAppSetting("D_Recommend").ToString();
+        string practice_recommend = ParameterStoreConfig.GetAppSetting("P_Recommend").ToString();
+        string praticeAccept = ParameterStoreConfig.GetAppSetting("PraticeAccept").ToString();
+        string praticeReject = ParameterStoreConfig.GetAppSetting("PraticeReject").ToString();
+        string fulfilled = ParameterStoreConfig.GetAppSetting("fulfilledStatus").ToString();
+        string ResumePending = ParameterStoreConfig.GetAppSetting("ResumePendingStatus").ToString();
+        string emp_Assignment = ParameterStoreConfig.GetAppSetting("AssignmentStatus").ToString();
+        string qualified = ParameterStoreConfig.GetAppSetting("TR_Qualified").ToString();
+        string convertInternal = ParameterStoreConfig.GetAppSetting("I_RequestType").ToString();
+        string convertExternal = ParameterStoreConfig.GetAppSetting("E_RequestType").ToString();
+        string PendingForDHApproval = ParameterStoreConfig.GetAppSetting("PendingForDHApproval").ToString();
+        string PendingForPMApproval = ParameterStoreConfig.GetAppSetting("PendingForPMApproval").ToString();
+        string external_Accept = ParameterStoreConfig.GetAppSetting("ExternalAccepted").ToString();
+        string external_Reject = ParameterStoreConfig.GetAppSetting("ExternalRejected").ToString();
+        string requestMoreInfo = ParameterStoreConfig.GetAppSetting("TR_RequestMoreInfo").ToString();
 
-        string tr_Terminate = System.Configuration.ConfigurationManager.AppSettings["TR_Terminate"].ToString();
-        string skill_Approved = System.Configuration.ConfigurationManager.AppSettings["Skill_Approved"].ToString();
-        string emp_status_Free = System.Configuration.ConfigurationManager.AppSettings["Emp_status_Free"].ToString();
-        string emp_ResourceStatus = System.Configuration.ConfigurationManager.AppSettings["Emp_ResourceStatus"].ToString();
-        string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+        string tr_Terminate = ParameterStoreConfig.GetAppSetting("TR_Terminate").ToString();
+        string skill_Approved = ParameterStoreConfig.GetAppSetting("Skill_Approved").ToString();
+        string emp_status_Free = ParameterStoreConfig.GetAppSetting("Emp_status_Free").ToString();
+        string emp_ResourceStatus = ParameterStoreConfig.GetAppSetting("Emp_ResourceStatus").ToString();
+        string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
 
-        int clientInterviewYes = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["AddNumberofBillingDatesClientInterview"].ToString());
-        int clientInterviewNo = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["AddNumberofBillingDatesClientInterviewNo"].ToString());
-        string Submitted = System.Configuration.ConfigurationManager.AppSettings["SubmittedStatus"].ToString();
+        int clientInterviewYes = Convert.ToInt32(ParameterStoreConfig.GetAppSetting("AddNumberofBillingDatesClientInterview").ToString());
+        int clientInterviewNo = Convert.ToInt32(ParameterStoreConfig.GetAppSetting("AddNumberofBillingDatesClientInterviewNo").ToString());
+        string Submitted = ParameterStoreConfig.GetAppSetting("SubmittedStatus").ToString();
         /// <summary>
         /// GET: ProposeAssociate view based on HRRF number
         /// </summary>
@@ -145,7 +144,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 }
                 var employeeId = Session["EmployeeId"];
                 ViewBag.HRRFCreatedBy = hrrfCreatedBy;
-                List<string> dashBoardViewers = System.Configuration.ConfigurationManager.AppSettings["DHAndRLRoleUsers"].Split(',').ToList();
+                List<string> dashBoardViewers = ParameterStoreConfig.GetAppSetting("DHAndRLRoleUsers").Split(',').ToList();
                 bool flag = dashBoardViewers.Contains(employeeId.ToString());
                 if (flag)
                     ViewBag.ShowApprovalButton = true;
@@ -221,7 +220,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 IList<TRHistory> _history = new List<TRHistory>();
                 var trHistoryobj = db.HRRFHistories.Where(h => h.HRRFNumber == hrrf).OrderByDescending(c => c.ModifiedDate).ToList();
                 var trRequestStatus = db.HRRFs.Where(h => h.HRRFNumber == hrrf).ToString();
-                if (trRequestStatus == ConfigurationManager.AppSettings["Submitted"].ToString())
+                if (trRequestStatus == ParameterStoreConfig.GetAppSetting("Submitted").ToString())
                 {
 
                 }
@@ -1831,7 +1830,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(hrrfcr.HRRFCreatedBy),
                                                     "This is to inform you that " + objEmployee.FirstName + " " + objEmployee.LastName + "(" + CheckedItem + ")" + " Resource accepted for another TR so we are removing this resource from your propsed list for the " + mt.HRRFNumber,
                                                     "Proposed Resource Removing", mt.HRRFNumber, "<b>" +
-                                                    ConfigurationManager.AppSettings["ProposedResource"] + "</b>" + mt.EmpName, null);
+                                                    ParameterStoreConfig.GetAppSetting("ProposedResource") + "</b>" + mt.EmpName, null);
 
 
                                                 string strPrevReqStatus1 = hrrfcr.RequestStatus;
@@ -1897,12 +1896,12 @@ namespace Trianz.Enterprise.Operations.Controllers
                         objProposeAssociate.DeliveryRemarks = string.Empty;
                         objProposeAssociate.PracticeStatus = practice_recommend;
                         objProposeAssociate.ProposedBy = Session["EmployeeId"].ToString(); //objHRRF.HRRFCreatedBy.ToString();
-                        objProposeAssociate.ProposedDate = DateTime.Now;
+                        objProposeAssociate.ProposedDate = DateTime.UtcNow;
                         objProposeAssociate.ApprovedBy = objHRRF.ModifiedBy.ToString();
                         // objProposeAssociate.ApproverEmailId = objHRRF.RequesterEmailId;
-                        objProposeAssociate.ApprovedDate = DateTime.Now;
+                        objProposeAssociate.ApprovedDate = DateTime.UtcNow;
                         objProposeAssociate.ModifiedBy = objHRRF.ModifiedBy;
-                        objProposeAssociate.ModifiedDate = DateTime.Now;
+                        objProposeAssociate.ModifiedDate = DateTime.UtcNow;
                         objProposeAssociate.HRRFID = objHRRF.HRRFID;
 
                         db.ProposeAssociates.Add(objProposeAssociate);
@@ -1928,13 +1927,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                         var isvalidbusinessgroup = db.IncludedBussinessGroups.Where(i => i.BusinessGroup.Contains(proposedEmpName.BusinessGroup)).FirstOrDefault();
                         var isinvalidemployetype = db.ExcludedEmployeeTypes.Where(i => i.EmployeeType.Contains(proposedEmpName.EmployeeType)).FirstOrDefault();
                         //added ops team in cc
-                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrProposedResources"], ConfigurationManager.AppSettings["TrProposedRes_NOtification"], HRRFNumber, "<b>" + ConfigurationManager.AppSettings["ProposedResource"] + "</b>" + proposedEmpName.FirstName + proposedEmpName.LastName, ConfigurationManager.AppSettings["ITS-OPS"]);
+                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrProposedResources"), ParameterStoreConfig.GetAppSetting("TrProposedRes_NOtification"), HRRFNumber, "<b>" + ParameterStoreConfig.GetAppSetting("ProposedResource") + "</b>" + proposedEmpName.FirstName + proposedEmpName.LastName, ParameterStoreConfig.GetAppSetting("ITS-OPS"));
                         //lakshmi
                         if (isvalidbusinessgroup != null && isinvalidemployetype == null)
                         {
-                            InsertNotification(Session["EmployeeId"].ToString(), CheckedItem, ConfigurationManager.AppSettings["Proposedto"] + objHRRF.ProjectName, ConfigurationManager.AppSettings["TrProposedRes_NOtification"], HRRFNumber, string.Empty, deliverymanager);
+                            InsertNotification(Session["EmployeeId"].ToString(), CheckedItem, ParameterStoreConfig.GetAppSetting("Proposedto") + objHRRF.ProjectName, ParameterStoreConfig.GetAppSetting("TrProposedRes_NOtification"), HRRFNumber, string.Empty, deliverymanager);
                         }
-                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrProposedResources_by"], ConfigurationManager.AppSettings["TrProposedRes_NOtification"], HRRFNumber, string.Empty, null);
+                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrProposedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedRes_NOtification"), HRRFNumber, string.Empty, null);
 
                         #endregion
                         js.Data = true;
@@ -1994,7 +1993,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(hrrfcr.HRRFCreatedBy),
                                         "This is to inform you that " + objEmployee.FirstName + " " + objEmployee.LastName + "(" + ProposedId + ")" + " Resource accepted for another TR so we are removing this resource from your propsed list for the " + mt.HRRFNumber,
                                         "Proposed Resource Removing", mt.HRRFNumber, "<b>" +
-                                        ConfigurationManager.AppSettings["ProposedResource"] + "</b>" + mt.EmpName, null);
+                                        ParameterStoreConfig.GetAppSetting("ProposedResource") + "</b>" + mt.EmpName, null);
                                     string strPrevReqStatus = hrrfcr.RequestStatus;
                                     var prop = db.ProposeAssociates.Where(i => i.HRRFNumber == mt.HRRFNumber
                                                && i.PracticeStatus == "Proposed" && i.EmpID != proposedEmpid).ToList();
@@ -2061,9 +2060,9 @@ namespace Trianz.Enterprise.Operations.Controllers
                             #region Existing Bench Record
                             var previousprojectass = db.ProjectAssignments.Where(p => p.IsActive == true && p.EmployeeId == propsedEmployeeid && p.BillingStatus == "Bench").ToList();
                             var dtProjectAssignSatrtAsEndDate = db.ProjectAssignments.Where(pa => pa.EmployeeId == propsedEmployeeid
-                                            && DateTime.Now <= pa.StartDate).OrderBy(pa => pa.StartDate).Select(pa => pa.StartDate).FirstOrDefault();
+                                            && DateTime.UtcNow <= pa.StartDate).OrderBy(pa => pa.StartDate).Select(pa => pa.StartDate).FirstOrDefault();
                             var dtProjectAssignEndDate = db.ProjectAssignments.Where(pa => pa.EmployeeId == propsedEmployeeid && pa.IsActive == true && pa.BillingStatus != "Bench"
-                                   && DateTime.Now <= pa.EndDate).OrderBy(pa => pa.EndDate).Select(pa => pa.EndDate).FirstOrDefault();
+                                   && DateTime.UtcNow <= pa.EndDate).OrderBy(pa => pa.EndDate).Select(pa => pa.EndDate).FirstOrDefault();
                             if (previousprojectass.Count != 0)
                             {
                                 foreach (var lt in previousprojectass)
@@ -2084,13 +2083,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     pash.StartDateOld = lt.StartDate;
                                     pash.UtilizationOld = lt.Utilization;
                                     pash.modifiedBy = loginempID;
-                                    pash.ModifiedDate = DateTime.Now;
+                                    pash.ModifiedDate = DateTime.UtcNow;
 
 
                                     #region Exisitng Bench Record Update based on selected Dates
                                     // Selecting top 1 Start Date order by desc to Set Bench Enda date
                                     int? uil = null;
-                                    if (DateTime.Now.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                    if (DateTime.UtcNow.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
                                     {
                                         if (Utilzation == null)
                                         {
@@ -2109,14 +2108,14 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     {
                                         lt.EndDate = Convert.ToDateTime(dtProjectAssignSatrtAsEndDate);
                                     }
-                                    else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.Now.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                    else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.UtcNow.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
                                     {
                                         if (Convert.ToDateTime(objHRRF.BillingDate) < dtProjectAssignEndDate)
                                             lt.EndDate = Convert.ToDateTime(objHRRF.BillingDate);
                                         else
                                             lt.EndDate = Convert.ToDateTime(dtProjectAssignEndDate);
                                     }
-                                    else if (DateTime.Now.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                    else if (DateTime.UtcNow.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
                                     {
                                         if (uil > 0)
                                             lt.EndDate = Convert.ToDateTime(objHRRF.AssignmentEndDate);
@@ -2164,7 +2163,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             else
                             {
                                 int benchUtilization = 0;
-                                if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                 {
                                     if (Utilzation == null)
                                     {
@@ -2178,7 +2177,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     //projAssignment.Utilization = Utilzation;
 
                                 }
-                                else if (DateTime.Now.Date < Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                else if (DateTime.UtcNow.Date < Convert.ToDateTime(objHRRF.BillingDate).Date)
                                 {
                                     benchUtilization = 100;
                                 }
@@ -2188,26 +2187,26 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     DateTime stdat = new DateTime();
                                     DateTime etdat = new DateTime();
 
-                                    if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                    if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                     {
                                         stdat = Convert.ToDateTime(objHRRF.BillingDate);
                                     }
                                     else
                                     {
-                                        stdat = DateTime.Now.Date;
+                                        stdat = DateTime.UtcNow.Date;
                                     }
-                                    if (dtProjectAssignSatrtAsEndDate != null && dtProjectAssignSatrtAsEndDate <= Convert.ToDateTime(objHRRF.BillingDate) && DateTime.Now.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                    if (dtProjectAssignSatrtAsEndDate != null && dtProjectAssignSatrtAsEndDate <= Convert.ToDateTime(objHRRF.BillingDate) && DateTime.UtcNow.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
                                     {
                                         etdat = Convert.ToDateTime(dtProjectAssignSatrtAsEndDate);
                                     }
-                                    else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.Now.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                    else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.UtcNow.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
                                     {
                                         if (Convert.ToDateTime(objHRRF.BillingDate) < dtProjectAssignEndDate)
                                             etdat = Convert.ToDateTime(objHRRF.BillingDate);
                                         else
                                             etdat = Convert.ToDateTime(dtProjectAssignEndDate);
                                     }
-                                    else if (DateTime.Now.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                    else if (DateTime.UtcNow.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
                                     {
                                         etdat = Convert.ToDateTime(objHRRF.AssignmentEndDate);
                                     }
@@ -2265,7 +2264,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             // need to check future date and active and inactive
                                             projAssignment.IsActive = true;
                                             projAssignment.Assigned_By = unass.FirstOrDefault().projmanger;
-                                            projAssignment.Assigned_Date = System.DateTime.Now;
+                                            projAssignment.Assigned_Date = System.DateTime.UtcNow;
                                             projAssignment.BillingStatus = unass.FirstOrDefault().Billingstatus;
                                             if (projAssignment.BillingStatus == "Bench")
                                             {
@@ -2289,7 +2288,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             projBenchHistory.StartDateOld = null;
                                             projBenchHistory.UtilizationOld = null;
                                             projBenchHistory.modifiedBy = loginempID;
-                                            projBenchHistory.ModifiedDate = DateTime.Now;
+                                            projBenchHistory.ModifiedDate = DateTime.UtcNow;
                                             projBenchHistory.UtilizationNew = projAssignment.Utilization;
                                             projBenchHistory.StartDateNew = projAssignment.StartDate;
                                             projBenchHistory.IsActiveNew = projAssignment.IsActive;
@@ -2322,7 +2321,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 var objHrrfFulfillment = db.HRRFs.Where(p => p.HRRFNumber == HRRFNumber).FirstOrDefault();
                                 string strPrevReqStatus = objHrrfFulfillment.RequestStatus;
                                 objHrrfFulfillment.RequestStatus = fulfilled;
-                                objHrrfFulfillment.ModifiedDate = DateTime.Now;
+                                objHrrfFulfillment.ModifiedDate = DateTime.UtcNow;
                                 db.Entry(objHrrfFulfillment).State = System.Data.Entity.EntityState.Modified;
                                 // HRRF histroy 
                                 TRScernarioHistroy(HRRFNumber, objPropose.EmpName + " - " + "has been Accepted for" + " - " + HRRFNumber, objHrrfFulfillment.Remarks, Convert.ToInt32(Session["EmployeeId"]), strPrevReqStatus);
@@ -2355,7 +2354,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     objProjectAssignment.EmployeeId = propsedEmployeeid;
                                     objProjectAssignment.Utilization = utl;
                                     // need to check future date and active and inactive
-                                    if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                    if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                     {
                                         objProjectAssignment.IsActive = true;
                                     }
@@ -2364,7 +2363,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         objProjectAssignment.IsActive = false;
                                     }
                                     objProjectAssignment.Assigned_By = name;
-                                    objProjectAssignment.Assigned_Date = System.DateTime.Now;
+                                    objProjectAssignment.Assigned_Date = System.DateTime.UtcNow;
                                     if (objHRRF.Purpose.ToLower() == "project")
                                     {
                                         objProjectAssignment.BillingStatus = objHRRF.ResourceType;
@@ -2398,10 +2397,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     pash.StartDateOld = null;
                                     pash.UtilizationOld = null;
                                     pash.modifiedBy = loginempID;
-                                    pash.ModifiedDate = DateTime.Now;
+                                    pash.ModifiedDate = DateTime.UtcNow;
                                     pash.UtilizationNew = utl;
                                     pash.StartDateNew = objHRRF.BillingDate;
-                                    if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                    if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                     {
                                         pash.IsActiveNew = true;
                                     }
@@ -2456,7 +2455,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             prj1.ProjectName = unass[0].ProjectName;
                                             prj1.StartDate = objHRRF.BillingDate;
                                             prj1.EndDate = objHRRF.AssignmentEndDate;
-                                            if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                            if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                             {
                                                 prj1.IsActive = true;
                                             }
@@ -2465,7 +2464,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 prj1.IsActive = false;
                                             }
                                             prj1.Assigned_By = unass[0].projmanger;
-                                            prj1.Assigned_Date = DateTime.Now;
+                                            prj1.Assigned_Date = DateTime.UtcNow;
                                             prj1.BillingStatus = unass[0].Billingstatus;
                                             if (prj1.BillingStatus == "Bench")
                                             {
@@ -2490,10 +2489,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             pash.StartDateOld = null;
                                             pash.UtilizationOld = null;
                                             pash.modifiedBy = loginempID;
-                                            pash.ModifiedDate = DateTime.Now;
+                                            pash.ModifiedDate = DateTime.UtcNow;
                                             pash.UtilizationNew = utl;
                                             pash.StartDateNew = objHRRF.BillingDate;
-                                            if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                            if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                             {
                                                 pash.IsActiveNew = true;
                                             }
@@ -2521,13 +2520,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 var isvalidbusinessgroup = db.IncludedBussinessGroups.Where(i => i.BusinessGroup.Contains(proposedEmpName.BusinessGroup)).FirstOrDefault();
                                 var isinvalidemployetype = db.ExcludedEmployeeTypes.Where(i => i.EmployeeType.Contains(proposedEmpName.EmployeeType)).FirstOrDefault();
                                 // email configure added ops team in cc
-                                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"], HRRFNumber, "<b>" + ConfigurationManager.AppSettings["AcceptedResource"] + ":</b>" + proposedEmpName.FirstName + proposedEmpName.LastName, ConfigurationManager.AppSettings["ITS-OPS"]+","+ ConfigurationManager.AppSettings["Assurance"]);
+                                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification"), HRRFNumber, "<b>" + ParameterStoreConfig.GetAppSetting("AcceptedResource") + ":</b>" + proposedEmpName.FirstName + proposedEmpName.LastName, ParameterStoreConfig.GetAppSetting("ITS-OPS")+","+ ParameterStoreConfig.GetAppSetting("Assurance"));
                                 //lakshmi
                                 if (isvalidbusinessgroup != null && isinvalidemployetype == null)
                                 {
-                                    InsertNotification(Session["EmployeeId"].ToString(), proposedEmpid, ConfigurationManager.AppSettings["Acceptedto"] + objHRRF.ProjectName, ConfigurationManager.AppSettings["AcceptedResource"], HRRFNumber, string.Empty, null);
+                                    InsertNotification(Session["EmployeeId"].ToString(), proposedEmpid, ParameterStoreConfig.GetAppSetting("Acceptedto") + objHRRF.ProjectName, ParameterStoreConfig.GetAppSetting("AcceptedResource"), HRRFNumber, string.Empty, null);
                                 }
-                                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrAcceptedResources_by"], ConfigurationManager.AppSettings["TrProposedRes_NOtification"] + objHRRF.ProjectName, HRRFNumber, string.Empty, null);
+                                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrAcceptedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedRes_NOtification") + objHRRF.ProjectName, HRRFNumber, string.Empty, null);
                             }
                         }
                     }
@@ -2539,38 +2538,15 @@ namespace Trianz.Enterprise.Operations.Controllers
                         strAlreadyAcceptedList.Add(empName);
                     }
                     DataSet retVal = new DataSet();
-                    string ConnectionString = ConfigurationManager.ConnectionStrings["ADOConnectionString"].ConnectionString;
-                    //EntityConnection entityConn = (EntityConnection)db.Database.Connection;
-                    SqlConnection sqlConn = new SqlConnection(ConnectionString);
+                    // Use EF context with RDS Proxy instead of direct SqlConnection
                     try
                     {
-
-                        SqlCommand cmdReport = new SqlCommand("PrcAssignDefaultBenchUsingGrade", sqlConn);
-                        SqlDataAdapter daReport = new SqlDataAdapter(cmdReport);
-                        using (cmdReport)
-                        {
-                            SqlParameter empIdPram = new SqlParameter("@EmployeeId", proposedEmpid);
-                            cmdReport.CommandType = CommandType.StoredProcedure;
-                            cmdReport.Parameters.Add(empIdPram);
-                            daReport.Fill(retVal);
-                        }
-
+                        db.Database.ExecuteSqlCommand("exec PrcAssignDefaultBenchUsingGrade @EmployeeId", proposedEmpid);
                     }
-                    //catch (Exception ex)
-                    //{
-                    //    ErrorHandling expcls = new ErrorHandling();
-                    //    expcls.Error(ex);
-                    //    return null;
-                    //}
                     catch (Exception ex)
                     {
-
                         Common.WriteExceptionErrorLog(ex);
                         return Json("Error", JsonRequestBehavior.AllowGet);
-                    }
-                    finally
-                    {
-                        sqlConn.Close();
                     }
                 }
                 var AlreadyAccepted = "";
@@ -2686,9 +2662,9 @@ namespace Trianz.Enterprise.Operations.Controllers
         //                        db.SaveChanges();
         //                        var proposedEmpName = db.Employees.Where(p => p.EmployeeId == propsedEmployeeid).FirstOrDefault();
         //                        // email configure
-        //                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"], HRRFNumber, ConfigurationManager.AppSettings["AcceptedResource"] + proposedEmpName.FirstName + proposedEmpName.LastName);
-        //                        InsertNotification(Session["EmployeeId"].ToString(), proposedEmpid, ConfigurationManager.AppSettings["Acceptedto"], ConfigurationManager.AppSettings["Acceptedto"] + objHRRF.ProjectName, HRRFNumber, string.Empty);
-        //                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrAcceptedResources_by"], ConfigurationManager.AppSettings["TrProposedRes_NOtification"] + objHRRF.ProjectName, HRRFNumber, string.Empty);
+        //                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification"), HRRFNumber, ParameterStoreConfig.GetAppSetting("AcceptedResource") + proposedEmpName.FirstName + proposedEmpName.LastName);
+        //                        InsertNotification(Session["EmployeeId"].ToString(), proposedEmpid, ParameterStoreConfig.GetAppSetting("Acceptedto"), ParameterStoreConfig.GetAppSetting("Acceptedto") + objHRRF.ProjectName, HRRFNumber, string.Empty);
+        //                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrAcceptedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedRes_NOtification") + objHRRF.ProjectName, HRRFNumber, string.Empty);
         //                    }
         //                }
         //            }
@@ -2769,8 +2745,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                         int empid = Convert.ToInt32(pid);
                         var proposedEmpName = db.Employees.Where(p => p.EmployeeId == empid).FirstOrDefault();
 
-                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrRejectedResources"], ConfigurationManager.AppSettings["TrProposedResRej_NOtification"], HRRFNumber, ConfigurationManager.AppSettings["RejectedResource"] + proposedEmpName.FirstName + proposedEmpName.LastName + "<br><b>" + ConfigurationManager.AppSettings["Remarks"] + "</b>" + _Msg, null);
-                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrRejectedResources_by"], ConfigurationManager.AppSettings["TrProposedResRej_NOtification"], HRRFNumber, "<br><b>" + ConfigurationManager.AppSettings["Remarks"] + "</b>" + _Msg, null);
+                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrRejectedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResRej_NOtification"), HRRFNumber, ParameterStoreConfig.GetAppSetting("RejectedResource") + proposedEmpName.FirstName + proposedEmpName.LastName + "<br><b>" + ParameterStoreConfig.GetAppSetting("Remarks") + "</b>" + _Msg, null);
+                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrRejectedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedResRej_NOtification"), HRRFNumber, "<br><b>" + ParameterStoreConfig.GetAppSetting("Remarks") + "</b>" + _Msg, null);
                     }
                 }
 
@@ -2860,8 +2836,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                 objHrrfHistory.Remarks = inputDetails;
                 objHrrfHistory.HistoryDescription = HRRFNumber + " - " + "has been Qualified";
                 objHrrfHistory.ModifiedBy = Convert.ToInt32(Session["EmployeeId"]);
-                objHrrfHistory.ModifiedDate = DateTime.Now;
-                objHrrfHistory.PrevRequestStatus = ConfigurationManager.AppSettings["TR_Submitted"].ToString();
+                objHrrfHistory.ModifiedDate = DateTime.UtcNow;
+                objHrrfHistory.PrevRequestStatus = ParameterStoreConfig.GetAppSetting("TR_Submitted").ToString();
                 db.HRRFHistories.Add(objHrrfHistory);
                 db.SaveChanges();
 
@@ -2887,24 +2863,24 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 deliverymanager = deliverymanager + "," + (projectDetails.ProjectManagerId).ToString();
                         }
                         // mail to TR Created By
-                        InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(hrrfResultQualify.HRRFCreatedBy), ConfigurationManager.AppSettings["TrQualified"] + " <b>" + strQualifiedBy + "</b>" + ".", ConfigurationManager.AppSettings["TrQualified_NOtification"], HRRFNumber, string.Empty, deliverymanager);
+                        InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(hrrfResultQualify.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrQualified") + " <b>" + strQualifiedBy + "</b>" + ".", ParameterStoreConfig.GetAppSetting("TrQualified_NOtification"), HRRFNumber, string.Empty, deliverymanager);
 
                         List<string> lstRecipients = new List<string>();
 
                         lstRecipients.Add(Session["EmployeeId"].ToString()); // mail to self
-                        ConfigurationManager.AppSettings["ITS-OPS"].Split(',').ToList<string>().ForEach(Ops => lstRecipients.Add(Ops)); // mail to ITS-OPS
+                        ParameterStoreConfig.GetAppSetting("ITS-OPS").Split(',').ToList<string>().ForEach(Ops => lstRecipients.Add(Ops)); // mail to ITS-OPS
 
                         foreach (string recipient in lstRecipients.Distinct())
                         {
-                            InsertNotification(Convert.ToString(Session["EmployeeId"]), recipient, ConfigurationManager.AppSettings["TrQualified_By"] + " <b>" + strQualifiedBy + " </b>" + ".", ConfigurationManager.AppSettings["TrQualified_NOtification"], HRRFNumber, string.Empty, null);
+                            InsertNotification(Convert.ToString(Session["EmployeeId"]), recipient, ParameterStoreConfig.GetAppSetting("TrQualified_By") + " <b>" + strQualifiedBy + " </b>" + ".", ParameterStoreConfig.GetAppSetting("TrQualified_NOtification"), HRRFNumber, string.Empty, null);
                         }
                     }
                 }
 
                 //var qualifybyname = db.Employees.Where(q => q.EmployeeId == objHrrfHistory.ModifiedBy).FirstOrDefault();
 
-                //InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(hrrfResultQualify.HRRFCreatedBy), ConfigurationManager.AppSettings["TrQualified"] + qualifybyname.FirstName + " " + qualifybyname.LastName + ".", ConfigurationManager.AppSettings["TrQualified_NOtification"], HRRFNumber, string.Empty);
-                //InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(Session["EmployeeId"]), ConfigurationManager.AppSettings["TrQualified_By"] + qualifybyname.FirstName + " " + qualifybyname.LastName + ".", ConfigurationManager.AppSettings["TrQualified_NOtification"], HRRFNumber, string.Empty);
+                //InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(hrrfResultQualify.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrQualified") + qualifybyname.FirstName + " " + qualifybyname.LastName + ".", ParameterStoreConfig.GetAppSetting("TrQualified_NOtification"), HRRFNumber, string.Empty);
+                //InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(Session["EmployeeId"]), ParameterStoreConfig.GetAppSetting("TrQualified_By") + qualifybyname.FirstName + " " + qualifybyname.LastName + ".", ParameterStoreConfig.GetAppSetting("TrQualified_NOtification"), HRRFNumber, string.Empty);
 
                 var viewResult = new ValidationModel()
                 {
@@ -2963,24 +2939,21 @@ namespace Trianz.Enterprise.Operations.Controllers
             var hrrfResultQualify = db.HRRFs.Where(h => h.HRRFNumber == HrrfNumber).ToList().FirstOrDefault();
             Notification tblNotification = new Notification();
             tblNotification.NotificationType = NOtificationType;
-            tblNotification.NotificationDate = System.DateTime.Now;
+            tblNotification.NotificationDate = System.DateTime.UtcNow;
             tblNotification.NotificationFrom = Convert.ToInt32(From);
             tblNotification.NotificationTo = Convert.ToInt32(To);
-            var Body = NotificationMsg + ConfigurationManager.AppSettings["TRNUMber"].ToString() + HrrfNumber + "<br/> <b> Job Description: </b>" + hrrfResultQualify.JobDescription + "<br/><br/>" + MailingContent(HrrfNumber) + Remarks;
+            var Body = NotificationMsg + ParameterStoreConfig.GetAppSetting("TRNUMber").ToString() + HrrfNumber + "<br/> <b> Job Description: </b>" + hrrfResultQualify.JobDescription + "<br/><br/>" + MailingContent(HrrfNumber) + Remarks;
             tblNotification.IsActive = true;
             tblNotification.AssetID = HrrfNumber;
-            tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+            tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
             tblNotification.IsFromGroupID = true;
             tblNotification.FromGroupID = "donotreply_Talento@trianz.com";
             tblNotification.CC = cc;
 
-            string talentoURL = ConfigurationManager.AppSettings["Talento"];
+            string talentoURL = ParameterStoreConfig.GetAppSetting("Talento");
             string body = string.Empty;
             string LinktoOpen = "Please Click on link to View the details of Submitted Talent Request number #" + HrrfNumber + " : " + talentoURL;
-            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
-            {
-                body = reader.ReadToEnd();
-            }
+            body = CloudFileHelper.ReadAllText("~/Views/Shared/EmailTemplate.html");
             body = body.Replace("{ToUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationTo).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
             //body = body.Replace("{FromUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationFrom).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
             body = body.Replace("{FromUserName}", "Talento Team");
@@ -3119,11 +3092,11 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                     objExternalFullfillment.Remarks = comments.Trim();
                     objExternalFullfillment.RequestedBy = objHRRF.HRRFCreatedBy.ToString();
-                    objExternalFullfillment.RequestedDate = DateTime.Now;
+                    objExternalFullfillment.RequestedDate = DateTime.UtcNow;
                     objExternalFullfillment.ApprovedBy = objHRRF.ModifiedBy.ToString();
-                    objExternalFullfillment.ApprovedDate = DateTime.Now;
+                    objExternalFullfillment.ApprovedDate = DateTime.UtcNow;
                     objExternalFullfillment.ModifiedBy = objHRRF.ModifiedBy;
-                    objExternalFullfillment.ModifiedDate = DateTime.Now;
+                    objExternalFullfillment.ModifiedDate = DateTime.UtcNow;
                     objExternalFullfillment.HRRFID = objHRRF.HRRFID;
                     db.ExternalFulfillments.Add(objExternalFullfillment);
                     //saving
@@ -3156,26 +3129,26 @@ namespace Trianz.Enterprise.Operations.Controllers
                         strConvertToExternalBy = objEmp.FirstName.Trim() + (!string.IsNullOrWhiteSpace(objEmp.MiddleName) ? " " + objEmp.MiddleName + " " : " ") + objEmp.LastName.Trim();
                         string ApproverId = DHNameFor_Mails(objHRRF.RequestStatus, objHRRF.Practice, objHRRF.CostCenter, Convert.ToInt32(objHRRF.Grade), Convert.ToInt32(objHRRF.HRRFCreatedBy), objHRRF.HRRFNumber);
                         // mail to TR Created By
-                        InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(hrrfResultQualify.HRRFCreatedBy), ConfigurationManager.AppSettings["TrConvertToExt"] + strConvertToExternalBy + ".", ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], HRRFNumber, string.Empty, null);
+                        InsertNotification(Convert.ToString(Session["EmployeeId"]), Convert.ToString(hrrfResultQualify.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrConvertToExt") + strConvertToExternalBy + ".", ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), HRRFNumber, string.Empty, null);
 
                         List<string> lstRecipients = new List<string>();
 
                         lstRecipients.Add(Session["EmployeeId"].ToString()); // mail to self
                         lstRecipients.Add(ApproverId); // mail to DH
-                        ConfigurationManager.AppSettings["ITS-OPS"].Split(',').ToList<string>().ForEach(Ops => lstRecipients.Add(Ops)); // mail to ITS-OPS
+                        ParameterStoreConfig.GetAppSetting("ITS-OPS").Split(',').ToList<string>().ForEach(Ops => lstRecipients.Add(Ops)); // mail to ITS-OPS
 
                         foreach (string recipient in lstRecipients.Distinct())
                         {
                             if (recipient != null && recipient != "") { 
-                                InsertNotification(Convert.ToString(Session["EmployeeId"]), recipient, ConfigurationManager.AppSettings["TrConvertToExt_By"] + strConvertToExternalBy + ".", ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], HRRFNumber, string.Empty, null);
+                                InsertNotification(Convert.ToString(Session["EmployeeId"]), recipient, ParameterStoreConfig.GetAppSetting("TrConvertToExt_By") + strConvertToExternalBy + ".", ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), HRRFNumber, string.Empty, null);
                             }
                         }
                     }
                 }
 
-                ////EmailNotification(ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], ConfigurationManager.AppSettings["TrConvertToExt"], HRRFNumber, ConfigurationManager.AppSettings["PHRole"]);
-                //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrConvertToExt_By"], ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], HRRFNumber, string.Empty);
-                //InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrConvertToExt"], ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], HRRFNumber, string.Empty);
+                ////EmailNotification(ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), ParameterStoreConfig.GetAppSetting("TrConvertToExt"), HRRFNumber, ParameterStoreConfig.GetAppSetting("PHRole"));
+                //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrConvertToExt_By"), ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), HRRFNumber, string.Empty);
+                //InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrConvertToExt"), ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), HRRFNumber, string.Empty);
 
                 return Json("success", JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("ProposeAssociate", "ProposeAssociate", new { hrrfno = HRRFNumber });
@@ -3221,7 +3194,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 var hrrfAcceptReject = db.ExternalFulfillments.Where(h => h.HRRFNumber == HRRFNumber).ToList().FirstOrDefault();
                 hrrfAcceptReject.ApprovalStatus = external_Accept;//Accepted
                 hrrfAcceptReject.ApprovedBy = Session["EmployeeId"].ToString(); //objHRRF.HRRFCreatedBy.ToString(); //need to get logged in user id
-                hrrfAcceptReject.ApprovedDate = DateTime.Now;
+                hrrfAcceptReject.ApprovedDate = DateTime.UtcNow;
                 db.Entry(hrrfAcceptReject).State = System.Data.Entity.EntityState.Modified;
                 // update hrrf status
                 var objHRRF = db.HRRFs.Where(c => c.HRRFNumber == HRRFNumber).FirstOrDefault();
@@ -3275,14 +3248,14 @@ namespace Trianz.Enterprise.Operations.Controllers
                         List<string> lstRecipients = new List<string>();                      
                         lstRecipients.Add(Session["EmployeeId"].ToString()); // sent mail to self
                         lstRecipients.Add(objHRRF.HRRFCreatedBy.ToString()); // mail to TR Created By
-                        ConfigurationManager.AppSettings["ITS-OPS"].Split(',').ToList<string>().ForEach(Ops => lstRecipients.Add(Ops)); // mail to ITS-OPS                       
-                        ConfigurationManager.AppSettings["Mail-RL"].Split(',').ToList<string>().ForEach(RLs => lstRecipients.Add(RLs)); // mail to RL(Divya, Nithya, Parvez, Lokesh)
+                        ParameterStoreConfig.GetAppSetting("ITS-OPS").Split(',').ToList<string>().ForEach(Ops => lstRecipients.Add(Ops)); // mail to ITS-OPS                       
+                        ParameterStoreConfig.GetAppSetting("Mail-RL").Split(',').ToList<string>().ForEach(RLs => lstRecipients.Add(RLs)); // mail to RL(Divya, Nithya, Parvez, Lokesh)
                                                                                                                                         //List<string> lstRLEmp = db.RoleMasters.Where(r => r.Role == "RL" && r.ApplicationCode == "TALENTREQ").Select(r => r.EmployeeId.ToString()).ToList();
                                                                                                                                         //List<string> lstRLActiveEmp = db.Employees.Where(e => lstRLEmp.Contains(e.EmployeeId.ToString()) && e.IsActive == true && e.LocationType == strLocationType).Select(emp => emp.EmployeeId.ToString()).ToList();
                         //lstRLActiveEmp.ForEach(RLs => lstRecipients.Add(RLs)); // mail to all active RLs
                         foreach (string recipient in lstRecipients.Distinct())
                         {
-                            InsertNotification(Session["EmployeeId"].ToString(), recipient, ConfigurationManager.AppSettings["ExternalFullAccept"].ToString() + strAcceptedBy + ",", ConfigurationManager.AppSettings["TrExtFulfilAcep_NOtification"].ToString(), objHRRF.HRRFNumber, "", null);
+                            InsertNotification(Session["EmployeeId"].ToString(), recipient, ParameterStoreConfig.GetAppSetting("ExternalFullAccept").ToString() + strAcceptedBy + ",", ParameterStoreConfig.GetAppSetting("TrExtFulfilAcep_NOtification").ToString(), objHRRF.HRRFNumber, "", null);
                         }
                     }
                     TempData["Message"] = "AcceptedExternal";
@@ -3346,12 +3319,12 @@ namespace Trianz.Enterprise.Operations.Controllers
                     objHRRF.RequestType = convertInternal;
                     objHRRF.RequestStatus = qualified;
                     objHRRF.Remarks = comments;
-                    objHRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
+                    objHRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
                     
                     TRScernarioHistroy(HRRFNumber, HRRFNumber + " - " + "has been converted to Internal", objHRRF.Remarks, Convert.ToInt32(Session["EmployeeId"]), strPrevRequestStatus);
                     //saving
                     db.SaveChanges();
-                    //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrConvertToExt_By"], ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], HRRFNumber, string.Empty);
+                    //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrConvertToExt_By"), ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), HRRFNumber, string.Empty);
 
                     //return RedirectToAction("Index", "ExternalReport");
                     return Json("success", JsonRequestBehavior.AllowGet);
@@ -3362,7 +3335,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     strPrevRequestStatus = objHRRF.RequestStatus;
                     objHRRF.RequestType = convertInternal;
                     objHRRF.RequestStatus = qualified;
-                    objHRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
+                    objHRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
                     objHRRF.Remarks = comments;
                     db.Entry(objHRRF).State = System.Data.Entity.EntityState.Modified;
 
@@ -3419,7 +3392,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 hrrfAcceptReject.ApprovalStatus = external_Reject;
                 hrrfAcceptReject.Remarks = comments;
                 hrrfAcceptReject.ApprovedBy = objHRRF.HRRFCreatedBy.ToString(); //need to get logged in user id
-                hrrfAcceptReject.ApprovedDate = DateTime.Now;
+                hrrfAcceptReject.ApprovedDate = DateTime.UtcNow;
                 db.Entry(hrrfAcceptReject).State = System.Data.Entity.EntityState.Modified;
                 // hrrf request type Status
                 string strPrevRequestStatus = objHRRF.RequestStatus;
@@ -3533,7 +3506,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 strPrevRequestStatus = hrrfRequestMoreInfo.RequestStatus;
                 hrrfRequestMoreInfo.RequestStatus = requestMoreInfo;
                 hrrfRequestMoreInfo.HRRFCreatedBy = objHRRF.HRRFCreatedBy; //need to get logged in user id
-                hrrfRequestMoreInfo.HRRFCreatedDate = DateTime.Now;
+                hrrfRequestMoreInfo.HRRFCreatedDate = DateTime.UtcNow;
                 hrrfRequestMoreInfo.Remarks = data;
                 db.Entry(hrrfRequestMoreInfo).State = System.Data.Entity.EntityState.Modified;
                 // Histroy
@@ -3541,8 +3514,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                 //saving
                 db.SaveChanges();
                 //mail notification
-                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrRequestedForMoreInfo_BY"], ConfigurationManager.AppSettings["TrRequestedFormoreInfo_NOtification"], HRRFNumber, "<b>" + ConfigurationManager.AppSettings["Remarks"] + "</b>" + data, null);
-                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrRequestedForMoreInfo"], ConfigurationManager.AppSettings["TrRequestedFormoreInfo_NOtification"], HRRFNumber, "<b>" + ConfigurationManager.AppSettings["Remarks"] + "</b>" + data, null);
+                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrRequestedForMoreInfo_BY"), ParameterStoreConfig.GetAppSetting("TrRequestedFormoreInfo_NOtification"), HRRFNumber, "<b>" + ParameterStoreConfig.GetAppSetting("Remarks") + "</b>" + data, null);
+                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrRequestedForMoreInfo"), ParameterStoreConfig.GetAppSetting("TrRequestedFormoreInfo_NOtification"), HRRFNumber, "<b>" + ParameterStoreConfig.GetAppSetting("Remarks") + "</b>" + data, null);
                 return RedirectToAction("Index", "trHome");
             }
             //catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
@@ -3605,13 +3578,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                 hrrfTerminate.Remarks = remarks;
                 hrrfTerminate.CancelReason = cancel_reasontext;
                 hrrfTerminate.ModifiedBy = Convert.ToInt32(Session["EmployeeId"]);
-                hrrfTerminate.ModifiedDate = DateTime.Now;
+                hrrfTerminate.ModifiedDate = DateTime.UtcNow;
                 if ((objHRRF.RequestType).ToLower().Contains("external"))
                 {
                     if (objExternalHire != null)
                     {
                         objExternalHire.RequestStatus = tr_Terminate;
-                        objExternalHire.CancelDate = DateTime.Now;
+                        objExternalHire.CancelDate = DateTime.UtcNow;
                         objExternalHire.CancellationReason = cancel_reasontext;
                         if (cancel_reasontext == "Duplicate" && duplicatehrrfno != "")
                             objExternalHire.DuplicateHRRFNo = duplicatehrrfno;
@@ -3627,7 +3600,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         et.CancellationReason = cancel_reasontext;
                         et.HRRFNumber = HRRFNumber;
                         et.HRRFId = objHRRF.HRRFID;
-                        et.CancelDate = DateTime.Now;
+                        et.CancelDate = DateTime.UtcNow;
                         et.EmployeeId = null;
                         et.RecruiterName = null;
                         if (cancel_reasontext == "Duplicate" && duplicatehrrfno != "")
@@ -3650,8 +3623,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                 TRScernarioHistroy(HRRFNumber, HRRFNumber + " - " + "has been Cancelled", hrrfTerminate.Remarks, Convert.ToInt32(Session["EmployeeId"]), strPrevRequestStatus);
                 //saving
                 db.SaveChanges();
-                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrTerminate"], ConfigurationManager.AppSettings["TrTerminate_NOtification"], HRRFNumber, string.Empty, null);
-                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrTerminate"], ConfigurationManager.AppSettings["TrTerminate_NOtification"], HRRFNumber, string.Empty, null);
+                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrTerminate"), ParameterStoreConfig.GetAppSetting("TrTerminate_NOtification"), HRRFNumber, string.Empty, null);
+                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrTerminate"), ParameterStoreConfig.GetAppSetting("TrTerminate_NOtification"), HRRFNumber, string.Empty, null);
                 return Json(HRRFNumber);
             }
             //catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
@@ -3692,13 +3665,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                 objHRRF.TECHPANEL = TechPanel;
                 objHRRF.SECONDTECHPANEL = TechPanel2;
                 objHRRF.ModifiedBy = Convert.ToInt32(Session["EmployeeId"]);
-                objHRRF.ModifiedDate = DateTime.Now;
+                objHRRF.ModifiedDate = DateTime.UtcNow;
                 // TR Histroy 
                 TRScernarioHistroy(HRRFNumber, HRRFNumber + reqstst + "(Edited:  ", null, Convert.ToInt32(Session["EmployeeId"]), reqstst);
                 //saving
                 db.SaveChanges();
-                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), "Edited", ConfigurationManager.AppSettings["TrEdited_NOtification"], HRRFNumber, string.Empty, null);
-                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), "Edited", ConfigurationManager.AppSettings["TrEdited_NOtification"], HRRFNumber, string.Empty, null);
+                InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), "Edited", ParameterStoreConfig.GetAppSetting("TrEdited_NOtification"), HRRFNumber, string.Empty, null);
+                InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), "Edited", ParameterStoreConfig.GetAppSetting("TrEdited_NOtification"), HRRFNumber, string.Empty, null);
                 return Json(HRRFNumber);
             }
             //catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
@@ -3753,7 +3726,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 }
                 HrrfHistory.ModifiedBy = EmpIdForCreatedBy;
                 HrrfHistory.Remarks = Remarks;
-                HrrfHistory.ModifiedDate = DateTime.Now;
+                HrrfHistory.ModifiedDate = DateTime.UtcNow;
                 HrrfHistory.PrevRequestStatus = PrevRequestStatus;
                 db.HRRFHistories.Add(HrrfHistory);
                 db.SaveChanges();
@@ -3854,7 +3827,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         db.SaveChanges();
                             
                         // Send Email notifications to respective members.
-                        //InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, ConfigurationManager.AppSettings["AcceptedResource"] + objResource.FirstName + " " + objResource.LastName);
+                        //InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, ParameterStoreConfig.GetAppSetting("AcceptedResource") + objResource.FirstName + " " + objResource.LastName);
                         //lakshmi
                         var proposedEmpName = db.Employees.Where(p => p.EmployeeId == proseEMpID).FirstOrDefault();
                         var isvalidbusinessgroup = db.IncludedBussinessGroups.Where(i => i.BusinessGroup.Contains(proposedEmpName.BusinessGroup)).FirstOrDefault();
@@ -3862,14 +3835,14 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                         if (isvalidbusinessgroup != null && isinvalidemployetype == null)
                         {
-                            InsertNotification(Session["EmployeeId"].ToString(), ProposedId[0], ConfigurationManager.AppSettings["Acceptedto"] + objHRRF.ProjectName, ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, string.Empty, null);
+                            InsertNotification(Session["EmployeeId"].ToString(), ProposedId[0], ParameterStoreConfig.GetAppSetting("Acceptedto") + objHRRF.ProjectName, ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, string.Empty, null);
                         }
-                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrAcceptedResources_by"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, string.Empty, null);
+                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrAcceptedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, string.Empty, null);
 
                         ProposeAssociate objProposeResource = db.ProposeAssociates.Where(pa => pa.EmpID == PropID).FirstOrDefault();
                         if (objProposeResource != null)
                         {
-                            InsertNotification(Session["EmployeeId"].ToString(), objProposeResource.ProposedBy, ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, "<b>" + ConfigurationManager.AppSettings["AcceptedResource"] + ":</b>" + objResource.FirstName + " " + objResource.LastName, ConfigurationManager.AppSettings["ITS-OPS"]+","+ ConfigurationManager.AppSettings["Assurance"]);
+                            InsertNotification(Session["EmployeeId"].ToString(), objProposeResource.ProposedBy, ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, "<b>" + ParameterStoreConfig.GetAppSetting("AcceptedResource") + ":</b>" + objResource.FirstName + " " + objResource.LastName, ParameterStoreConfig.GetAppSetting("ITS-OPS")+","+ ParameterStoreConfig.GetAppSetting("Assurance"));
                         }
                     }
                 }
@@ -3915,14 +3888,14 @@ namespace Trianz.Enterprise.Operations.Controllers
 
 
                         //// Send Email notifications to respective members.
-                        ////InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, ConfigurationManager.AppSettings["AcceptedResource"] + objResource.FirstName + " " + objResource.LastName);
-                        //InsertNotification(Session["EmployeeId"].ToString(), ProposedId[0], ConfigurationManager.AppSettings["Acceptedto"] + objHRRF.ProjectName, ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, string.Empty);
-                        //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrAcceptedResources_by"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, string.Empty);
+                        ////InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, ParameterStoreConfig.GetAppSetting("AcceptedResource") + objResource.FirstName + " " + objResource.LastName);
+                        //InsertNotification(Session["EmployeeId"].ToString(), ProposedId[0], ParameterStoreConfig.GetAppSetting("Acceptedto") + objHRRF.ProjectName, ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, string.Empty);
+                        //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrAcceptedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, string.Empty);
 
                         //ProposeAssociate objProposeResource = db.ProposeAssociates.Where(pa => pa.EmpID == PropID).FirstOrDefault();
                         //if (objProposeResource != null)
                         //{
-                        //    InsertNotification(Session["EmployeeId"].ToString(), objProposeResource.ProposedBy, ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"] + " - by PM", HRRFNumber, ConfigurationManager.AppSettings["AcceptedResource"] + objResource.FirstName + " " + objResource.LastName);
+                        //    InsertNotification(Session["EmployeeId"].ToString(), objProposeResource.ProposedBy, ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification") + " - by PM", HRRFNumber, ParameterStoreConfig.GetAppSetting("AcceptedResource") + objResource.FirstName + " " + objResource.LastName);
                         //}
                     }
                 }
@@ -3944,7 +3917,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             try
             {
 
-                DateTime todayDate = Convert.ToDateTime(DateTime.Now.Date);
+                DateTime todayDate = Convert.ToDateTime(DateTime.UtcNow.Date);
                 string HRRFNumber = Session["hrrfno"].ToString();
                 TempData["hrrfno"] = HRRFNumber;
                 List<string> strAlreadyAcceptedList = new List<string>();
@@ -3953,7 +3926,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 var Hrrffulldetails = db.HRRFs.Where(c => c.HRRFNumber == HRRFNumber).FirstOrDefault();
 
                 int? hrrfcreator = Hrrffulldetails.HRRFCreatedBy;
-                string[] strITOPS = ConfigurationManager.AppSettings["ITS-OPS"].Split(',');
+                string[] strITOPS = ParameterStoreConfig.GetAppSetting("ITS-OPS").Split(',');
                 var oms = (db.RoleMasters.Where(s => (s.Practice == Hrrffulldetails.Practice && s.Role == "OM" && s.ApplicationCode == "TALENTREQ") || strITOPS.Contains(s.EmployeeId.ToString().Trim())).ToList());
 
 
@@ -4021,13 +3994,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             pash.StartDateOld = lt.StartDate;
                                             pash.UtilizationOld = lt.Utilization;
                                             pash.modifiedBy = loginempID;
-                                            pash.ModifiedDate = DateTime.Now;
+                                            pash.ModifiedDate = DateTime.UtcNow;
 
                                             #region Exisitng Bench Record Update based on selected Dates
                                             // Selecting top 1 Start Date order by desc to Set Bench Enda date
                                             // billdatge == getdate
                                             int? uil = null;
-                                            if (DateTime.Now.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                            if (DateTime.UtcNow.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
                                             {
                                                 if (Utilzation == null)
                                                 {
@@ -4046,14 +4019,14 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             {
                                                 lt.EndDate = Convert.ToDateTime(dtProjectAssignSatrtAsEndDate);
                                             }
-                                            else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.Now.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                            else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.UtcNow.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
                                             {
                                                 if (Convert.ToDateTime(objHRRF.BillingDate) < dtProjectAssignEndDate)
                                                     lt.EndDate = Convert.ToDateTime(objHRRF.BillingDate);
                                                 else
                                                     lt.EndDate = Convert.ToDateTime(dtProjectAssignEndDate);
                                             }
-                                            else if (DateTime.Now.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                            else if (DateTime.UtcNow.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
                                             {
                                                 if (uil > 0)
                                                     lt.EndDate = Convert.ToDateTime(objHRRF.AssignmentEndDate);
@@ -4104,7 +4077,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     else
                                     {
                                         int benchUtilization = 0;
-                                        if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                        if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                         {
                                             if (Utilzation == null)
                                             {
@@ -4118,7 +4091,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             //projAssignment.Utilization = Utilzation;
 
                                         }
-                                        else if (DateTime.Now.Date < Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                        else if (DateTime.UtcNow.Date < Convert.ToDateTime(objHRRF.BillingDate).Date)
                                         {
                                             benchUtilization = 100;
                                         }
@@ -4128,26 +4101,26 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             DateTime stdat = new DateTime();
                                             DateTime etdat = new DateTime();
 
-                                            if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                            if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                             {
                                                 stdat = Convert.ToDateTime(objHRRF.BillingDate);
                                             }
                                             else
                                             {
-                                                stdat = DateTime.Now.Date;
+                                                stdat = DateTime.UtcNow.Date;
                                             }
-                                            if (dtProjectAssignSatrtAsEndDate != null && dtProjectAssignSatrtAsEndDate <= Convert.ToDateTime(objHRRF.BillingDate) && DateTime.Now.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                            if (dtProjectAssignSatrtAsEndDate != null && dtProjectAssignSatrtAsEndDate <= Convert.ToDateTime(objHRRF.BillingDate) && DateTime.UtcNow.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
                                             {
                                                 etdat = Convert.ToDateTime(dtProjectAssignSatrtAsEndDate);
                                             }
-                                            else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.Now.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                            else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= Convert.ToDateTime(objHRRF.AssignmentEndDate) && DateTime.UtcNow.Date.Equals(Convert.ToDateTime(objHRRF.BillingDate).Date))
                                             {
                                                 if (Convert.ToDateTime(objHRRF.BillingDate) < dtProjectAssignEndDate)
                                                     etdat = Convert.ToDateTime(objHRRF.BillingDate);
                                                 else
                                                     etdat = Convert.ToDateTime(dtProjectAssignEndDate);
                                             }
-                                            else if (DateTime.Now.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
+                                            else if (DateTime.UtcNow.Date >= (Convert.ToDateTime(objHRRF.BillingDate).Date))
                                             {
                                                 etdat = Convert.ToDateTime(objHRRF.AssignmentEndDate);
                                             }
@@ -4208,7 +4181,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 // need to check future date and active and inactive
                                                 projAssignment.IsActive = true;
                                                 projAssignment.Assigned_By = unass.FirstOrDefault().projmanger;
-                                                projAssignment.Assigned_Date = System.DateTime.Now;
+                                                projAssignment.Assigned_Date = System.DateTime.UtcNow;
                                                 projAssignment.BillingStatus = unass.FirstOrDefault().Billingstatus;
                                                 if (projAssignment.BillingStatus == "Bench")
                                                 {
@@ -4232,7 +4205,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 projBenchHistory.StartDateOld = null;
                                                 projBenchHistory.UtilizationOld = null;
                                                 projBenchHistory.modifiedBy = loginempID;
-                                                projBenchHistory.ModifiedDate = DateTime.Now;
+                                                projBenchHistory.ModifiedDate = DateTime.UtcNow;
                                                 projBenchHistory.UtilizationNew = Utilzation;
                                                 projBenchHistory.StartDateNew = projAssignment.StartDate;
                                                 projBenchHistory.IsActiveNew = projAssignment.IsActive;
@@ -4264,7 +4237,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         var objHrrfFulfillment = db.HRRFs.Where(p => p.HRRFNumber == HRRFNumber).FirstOrDefault();
                                         string strPrevReqStatus = objHrrfFulfillment.RequestStatus;
                                         objHrrfFulfillment.RequestStatus = fulfilled;
-                                        objHrrfFulfillment.ModifiedDate = DateTime.Now;
+                                        objHrrfFulfillment.ModifiedDate = DateTime.UtcNow;
                                         db.Entry(objHrrfFulfillment).State = System.Data.Entity.EntityState.Modified;
                                         // HRRF histroy 
                                         TRScernarioHistroy(HRRFNumber, objPropose.EmpName + " - " + "has been Accepted for" + " - " + HRRFNumber, objHrrfFulfillment.Remarks, Convert.ToInt32(Session["EmployeeId"]), strPrevReqStatus);
@@ -4297,7 +4270,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             objProjectAssignment.EmployeeId = propsedEmployeeid;
                                             objProjectAssignment.Utilization = utl;
                                             // need to check future date and active and inactive
-                                            if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                            if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                             {
                                                 objProjectAssignment.IsActive = true;
                                             }
@@ -4306,7 +4279,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 objProjectAssignment.IsActive = false;
                                             }
                                             objProjectAssignment.Assigned_By = name;
-                                            objProjectAssignment.Assigned_Date = System.DateTime.Now;
+                                            objProjectAssignment.Assigned_Date = System.DateTime.UtcNow;
                                             if (objHRRF.Purpose.ToLower() == "project")
                                             {
                                                 objProjectAssignment.BillingStatus = objHRRF.ResourceType;
@@ -4340,10 +4313,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             pash.StartDateOld = null;
                                             pash.UtilizationOld = null;
                                             pash.modifiedBy = loginempID;
-                                            pash.ModifiedDate = DateTime.Now;
+                                            pash.ModifiedDate = DateTime.UtcNow;
                                             pash.UtilizationNew = utl;
                                             pash.StartDateNew = objHRRF.BillingDate;
-                                            if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                            if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                             {
                                                 pash.IsActiveNew = true;
                                             }
@@ -4398,7 +4371,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                     prj1.ProjectName = unass[0].ProjectName;
                                                     prj1.StartDate = objHRRF.BillingDate;
                                                     prj1.EndDate = objHRRF.AssignmentEndDate;
-                                                    if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                                    if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                                     {
                                                         prj1.IsActive = true;
                                                     }
@@ -4407,7 +4380,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                         prj1.IsActive = false;
                                                     }
                                                     prj1.Assigned_By = unass[0].projmanger;
-                                                    prj1.Assigned_Date = DateTime.Now;
+                                                    prj1.Assigned_Date = DateTime.UtcNow;
                                                     prj1.BillingStatus = unass[0].Billingstatus;
                                                     prj1.Utilization = utl;
                                                     if (prj1.BillingStatus == "Bench")
@@ -4432,10 +4405,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                     pash.StartDateOld = null;
                                                     pash.UtilizationOld = null;
                                                     pash.modifiedBy = loginempID;
-                                                    pash.ModifiedDate = DateTime.Now;
+                                                    pash.ModifiedDate = DateTime.UtcNow;
                                                     pash.UtilizationNew = utl;
                                                     pash.StartDateNew = objHRRF.BillingDate;
-                                                    if (DateTime.Now.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
+                                                    if (DateTime.UtcNow.Date >= Convert.ToDateTime(objHRRF.BillingDate).Date)
                                                     {
                                                         pash.IsActiveNew = true;
                                                     }
@@ -4464,13 +4437,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         var isinvalidemployetype = db.ExcludedEmployeeTypes.Where(i => i.EmployeeType.Contains(proposedEmpName.EmployeeType)).FirstOrDefault();
 
                                         // email configure    added ops team in cc part                      
-                                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ConfigurationManager.AppSettings["TrAcceptedResources"], ConfigurationManager.AppSettings["TrProposedResAce_NOtification"], HRRFNumber, "<b>" + ConfigurationManager.AppSettings["AcceptedResource"] + ":</b>" + proposedEmpName.FirstName + proposedEmpName.LastName, ConfigurationManager.AppSettings["ITS-OPS"]+","+ ConfigurationManager.AppSettings["Assurance"]);
+                                        InsertNotification(Session["EmployeeId"].ToString(), Convert.ToString(objHRRF.HRRFCreatedBy), ParameterStoreConfig.GetAppSetting("TrAcceptedResources"), ParameterStoreConfig.GetAppSetting("TrProposedResAce_NOtification"), HRRFNumber, "<b>" + ParameterStoreConfig.GetAppSetting("AcceptedResource") + ":</b>" + proposedEmpName.FirstName + proposedEmpName.LastName, ParameterStoreConfig.GetAppSetting("ITS-OPS")+","+ ParameterStoreConfig.GetAppSetting("Assurance"));
                                         //lakshmi
                                         if (isvalidbusinessgroup != null && isinvalidemployetype == null)
                                         {
-                                            InsertNotification(Session["EmployeeId"].ToString(), proposedEmpid, ConfigurationManager.AppSettings["Acceptedto"] + objHRRF.ProjectName, ConfigurationManager.AppSettings["AcceptedResource"], HRRFNumber, string.Empty, null);
+                                            InsertNotification(Session["EmployeeId"].ToString(), proposedEmpid, ParameterStoreConfig.GetAppSetting("Acceptedto") + objHRRF.ProjectName, ParameterStoreConfig.GetAppSetting("AcceptedResource"), HRRFNumber, string.Empty, null);
                                         }
-                                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrAcceptedResources_by"], ConfigurationManager.AppSettings["TrProposedRes_NOtification"] + objHRRF.ProjectName, HRRFNumber, string.Empty, null);
+                                        InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrAcceptedResources_by"), ParameterStoreConfig.GetAppSetting("TrProposedRes_NOtification") + objHRRF.ProjectName, HRRFNumber, string.Empty, null);
                                     }
                                 }
                             }
@@ -4730,7 +4703,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                     objHRRF.ResourceName = null;
                     objHRRF.Remarks = comments;
-                    objHRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
+                    objHRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
 
 
                     //TRScernarioHistroy(HRRFNumber, HRRFNumber + " - " + "It has been converted to  ResumePending status", objHRRF.Remarks, Convert.ToInt32(Session["EmployeeId"]), strPrevRequestStatus);
@@ -4738,7 +4711,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                     //saving
                     db.SaveChanges();
-                    //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ConfigurationManager.AppSettings["TrConvertToExt_By"], ConfigurationManager.AppSettings["TrConverttoExt_NOtification"], HRRFNumber, string.Empty);
+                    //InsertNotification(Session["EmployeeId"].ToString(), Session["EmployeeId"].ToString(), ParameterStoreConfig.GetAppSetting("TrConvertToExt_By"), ParameterStoreConfig.GetAppSetting("TrConverttoExt_NOtification"), HRRFNumber, string.Empty);
 
 
 
@@ -4824,7 +4797,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     }
 
                     objHRRF.ResourceName = null;
-                    objHRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
+                    objHRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
                     objHRRF.Remarks = comments;
                     db.Entry(objHRRF).State = System.Data.Entity.EntityState.Modified;
 
@@ -4872,7 +4845,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     {
                         HrrfNo = hrrf,
                         Remarks = remark,
-                        Submitteddate = DateTime.Now,
+                        Submitteddate = DateTime.UtcNow,
                         SubmittedBy = Convert.ToString(Session["EmployeeId"])
                     };
 
@@ -4919,7 +4892,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     {
                         HrrfNo = hrrf,
                         Status = status,
-                        Submitteddate = DateTime.Now,
+                        Submitteddate = DateTime.UtcNow,
                         SubmittedBy = Convert.ToString(Session["EmployeeId"])
                     };
 

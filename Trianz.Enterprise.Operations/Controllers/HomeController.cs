@@ -1,7 +1,6 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -11,8 +10,6 @@ using System.Reflection;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.UI;
 //using Trianz.Enterprise.Operations.EmployeeService;
 using Trianz.Enterprise.Operations.Models;
 using Trianz.Enterprise.Operations.General;
@@ -54,8 +51,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                     {
                         Employee employee = (from data in Db.Employees.Where(x => x.EmployeeId == EmployeeId) select data).FirstOrDefault();
                         var RoleResults = Db.RoleMasters.ToList().Where(role => role.EmployeeId == employee.EmployeeId && role.ApplicationCode == "TALENTREQ").FirstOrDefault();
-                        string RoleValues = ConfigurationManager.AppSettings["RoleManagement"];
-                        string DefaultRole = ConfigurationManager.AppSettings["DefaultRole"];
+                        string RoleValues = ParameterStoreConfig.GetAppSetting("RoleManagement");
+                        string DefaultRole = ParameterStoreConfig.GetAppSetting("DefaultRole");
                         List<string> lst = new List<string>();
                         lst = RoleValues.Split(',').ToList();
                         if (RoleResults != null)
@@ -169,11 +166,12 @@ namespace Trianz.Enterprise.Operations.Controllers
                 Session.Clear();
                 Session.Abandon();
                 Session.RemoveAll();
-                FormsAuthentication.SignOut();
+                // Replace FormsAuthentication.SignOut with OWIN authentication
+                HttpContext.GetOwinContext().Authentication.SignOut();
             }
             catch (Exception ex)
             {
-                Response.Redirect(ConfigurationManager.AppSettings["Talento"]);
+                Response.Redirect(ParameterStoreConfig.GetAppSetting("Talento"));
             }
 
         }
@@ -290,7 +288,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     objHRRFExportToExcel.HRRFNumber = item.HRRFNumber;
                     objHRRFExportToExcel.OldHRRFNumber = item.OldHRRFNumber;
                     objHRRFExportToExcel.CreatedDate = Convert.ToDateTime(item.HRRFCreatedDate);
-                    objHRRFExportToExcel.Ageing = (item.HRRFCreatedDate == null) ? 0 : ((DateTime.Today - Convert.ToDateTime(Convert.ToDateTime(item.HRRFCreatedDate).ToString("dd MMM yyyy"))).Days);
+                    objHRRFExportToExcel.Ageing = (item.HRRFCreatedDate == null) ? 0 : ((DateTime.UtcNow.Date - Convert.ToDateTime(Convert.ToDateTime(item.HRRFCreatedDate).ToString("dd MMM yyyy"))).Days);
                     objHRRFExportToExcel.AgeingBucket = (objHRRFExportToExcel.Ageing < 30) ? "0 - 29 D" : (objHRRFExportToExcel.Ageing < 60) ? "30 - 59 D" : (objHRRFExportToExcel.Ageing < 90) ? "60 - 89 D" : ">=90 D";
                     objHRRFExportToExcel.Purpose = item.Purpose;
                     objHRRFExportToExcel.ProjectNameWithCode = (item.Purpose.ToLower() == "proactive hire" || item.Purpose.ToLower() == "opportunity") ? "" : item.ProjectName + " --- " + item.ProjectCode;
@@ -330,7 +328,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             && item.RequestStatus.ToLower() != "terminated" && item.RequestStatus.ToLower() != "fulfilled")
                         {
                             DateTime dtAssignmentStartDate = Convert.ToDateTime(item.AssignmentStartDate);
-                            DateTime dtCurrentDate = DateTime.Today;
+                            DateTime dtCurrentDate = DateTime.UtcNow.Date;
 
                             int result = DateTime.Compare(dtCurrentDate, dtAssignmentStartDate);
 
@@ -688,7 +686,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     Byte[] fileBytes = package.GetAsByteArray();
                     Response.Clear();
                     Response.Buffer = true;
-                    Response.AddHeader("content-disposition", "attachment;filename=TR-Details" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                    Response.AddHeader("content-disposition", "attachment;filename=TR-Details" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                     Response.Charset = "";
                     Response.ContentType = "application/vnd.ms-excel";

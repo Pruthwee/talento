@@ -306,8 +306,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                         prf.HR = profiledata.HR;
                         prf.PendingInterviews = profiledata.PendingInterviews;
                         prf.ProfilesDate = profiledata.ProfilesDate;
-                        prf.CreatedDate = DateTime.Now;
-                        prf.ModifiedDate = DateTime.Now;
+                        prf.CreatedDate = DateTime.UtcNow;
+                        prf.ModifiedDate = DateTime.UtcNow;
                         prf.CreatedBy = Empid;
                         prf.ModifiedBy = Empid;
                         db.ProfilesInformations.Add(prf);
@@ -333,7 +333,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             existingProfile.CreatedDate = profiledetails.CreatedDate;
                             existingProfile.CreatedBy = profiledetails.CreatedBy;
 
-                            existingProfile.ModifiedDate = DateTime.Now;
+                            existingProfile.ModifiedDate = DateTime.UtcNow;
                             existingProfile.ModifiedBy = Empid;
                             // db.Entry(hrrfdetails).State = EntityState.Modified;
                             db.Entry(existingProfile).State = EntityState.Modified;

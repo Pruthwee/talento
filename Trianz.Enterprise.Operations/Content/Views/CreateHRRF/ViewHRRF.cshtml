@@ -1319,10 +1319,10 @@ new SelectListItem { Text ="P3",Value="P3"}
             $("#Positions").prop("disabled", true);
         }
 
-        var rolebind = @Html.Raw(Json.Encode(ViewData["_Role"]));
+        var rolebind = @HtmlSanitizerHelper.Sanitize(Json.Encode(ViewData["_Role"]));
         @{
                 //List<string> rolebind = new List<string>();
-                //rolebind = (Html.Raw(Json.Encode(ViewData["_Role"]))).ToString;
+                //rolebind = (HtmlSanitizerHelper.Sanitize(Json.Encode(ViewData["_Role"]))).ToString;
 
                 var rolebindvalue = (System.Collections.IEnumerable)ViewData["_Role"];
                 var ischkrole = false;

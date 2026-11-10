@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -126,7 +125,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     }
 
                                     Notifications objnotifications = new Notifications();
-                                    objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                    objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                     objnotifications.AssetID = hrrf.HRRFNumber;
                                     objnotifications.Grade = hrrf.Grade.ToString();
                                     objnotifications.Role = rolname;
@@ -158,7 +157,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -180,7 +179,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -202,7 +201,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -224,7 +223,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -246,7 +245,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -268,7 +267,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -290,7 +289,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -313,7 +312,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -362,7 +361,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                                 //            if (Session["EmployeeId"].ToString() == "103673" && hrrf.Grade <= 4) // Ashutosh Uprety
                                 //            {
-                                //                objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //                objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //                objnotifications.AssetID = hrrf.HRRFNumber;
                                 //                objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -370,7 +369,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //            }
                                 //            else if (Session["EmployeeId"].ToString() != "103673" && hrrf.Grade > 4)
                                 //            {
-                                //                objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //                objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //                objnotifications.AssetID = hrrf.HRRFNumber;
                                 //                objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to external fulfilment has been pending for your approvals.";
 
@@ -402,7 +401,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -423,7 +422,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -444,7 +443,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -465,7 +464,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -486,7 +485,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -506,7 +505,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -526,7 +525,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -547,7 +546,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //    {
                                 //        Notifications objnotifications = new Notifications();
 
-                                //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //        objnotifications.AssetID = hrrf.HRRFNumber;
                                 //        objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -581,7 +580,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                                 //            if (Session["EmployeeId"].ToString() == "103673" && hrrf.Grade <= 4) // Ashutosh Uprety
                                 //            {
-                                //                objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //                objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //                objnotifications.AssetID = hrrf.HRRFNumber;
                                 //                objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -589,7 +588,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //            }
                                 //            else if (Session["EmployeeId"].ToString() != "103673" && hrrf.Grade > 4) // Satish Katragadda
                                 //            {
-                                //                objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                //                objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 //                objnotifications.AssetID = hrrf.HRRFNumber;
                                 //                objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -642,7 +641,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 objnotifications.Grade = hrrf.Grade.ToString();
                                 objnotifications.JobDescrption = hrrf.jobdescrption;
                                 objnotifications.Role = rolname;
-                                objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                                objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                                 objnotifications.AssetID = hrrf.HRRFNumber;
                                 objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -692,7 +691,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             objnotifications.Grade = hrrf.Grade.ToString();
                             objnotifications.JobDescrption = hrrf.jobdescrption;
                             objnotifications.Role = rolname;
-                            objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                            objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                             objnotifications.AssetID = hrrf.HRRFNumber;
                             objnotifications.NotificationMessage = "This is inform you that the Talent Request, which is converted to internal fulfilment has been pending for your approvals.";
 
@@ -720,7 +719,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     {
                         foreach (var emp in TotalEmps)
                         {
-                            string status = "Submitted"; // ConfigurationManager.AppSettings["skillstatus"];
+                            string status = "Submitted"; // ParameterStoreConfig.GetAppSetting("skillstatus");
                             var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.EmployeeId && e.SkillStatus == status).FirstOrDefault();
 
                             if (yettpprove != null)
@@ -737,7 +736,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     empname = empt.name;
 
                                 Notifications objnotifications = new Notifications();
-                                objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppcodeSkills"].ToString();
+                                objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppcodeSkills").ToString();
                                 objnotifications.AssetID = yettpprove.EmployeeId.ToString();
                                 objnotifications.RequestName = empname.ToString();
                                 objnotifications.NotificationMessage = "This is inform you that the Skills Approvals Pending for " + empname.ToString();
@@ -763,13 +762,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                     //var skillsToBeApproved = new List<Notifications>();
                     //foreach (var emp in TotalEmps)
                     //{
-                    //    string status = ConfigurationManager.AppSettings["skillstatus"];
+                    //    string status = ParameterStoreConfig.GetAppSetting("skillstatus");
                     //    var yettpprove = db.EmployeeSkills.Where(e => e.EmployeeId == emp.EmployeeId && e.Status == status).FirstOrDefault();
 
                     //    if (yettpprove != null)
                     //    {
                     //        Notifications objnotifications = new Notifications();
-                    //        objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppcodeSkills"].ToString();
+                    //        objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppcodeSkills").ToString();
                     //        objnotifications.AssetID = yettpprove.Employee.EmployeeId.ToString();
                     //        objnotifications.RequestName = (yettpprove.Employee.FirstName + " " + yettpprove.Employee.MiddleName + " " + yettpprove.Employee.LastName).ToString();
                     //        objnotifications.NotificationMessage = "This is inform you that the Skills Approvals Pending for " + yettpprove.Employee.FirstName + " " + yettpprove.Employee.LastName;
@@ -802,7 +801,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             {
                                 string status = "Submitted";
                                 string status1 = "Approved";
-                                // ConfigurationManager.AppSettings["skillstatus"];
+                                // ParameterStoreConfig.GetAppSetting("skillstatus");
                                                              //  var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.TeamMemberID && e.SkillStatus == status).FirstOrDefault();
                                // var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.TeamMemberID && e.IsReviewed == null && e.SkillStatus == status).FirstOrDefault();
 
@@ -822,7 +821,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         empname = empt.name;
 
                                     Notifications objnotifications = new Notifications();
-                                    objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppcodeSkills"].ToString();
+                                    objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppcodeSkills").ToString();
                                     objnotifications.AssetID = yettpprove.EmployeeId.ToString();
                                     objnotifications.RequestName = empname.ToString();
                                     objnotifications.NotificationMessage = "This is inform you that the Skills Approvals Pending for " + empname.ToString();
@@ -851,7 +850,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         {
                             foreach (var emp in TotalEmps)
                             {
-                                string status = "Submitted"; // ConfigurationManager.AppSettings["skillstatus"];
+                                string status = "Submitted"; // ParameterStoreConfig.GetAppSetting("skillstatus");
                                 var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.EmployeeId && e.SkillStatus == status).FirstOrDefault();
 
                                 if (yettpprove != null)
@@ -868,7 +867,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         empname = empt.name;
 
                                     Notifications objnotifications = new Notifications();
-                                    objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppcodeSkills"].ToString();
+                                    objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppcodeSkills").ToString();
                                     objnotifications.AssetID = yettpprove.EmployeeId.ToString();
                                     objnotifications.RequestName = empname.ToString();
                                     objnotifications.NotificationMessage = "This is inform you that the Skills Approvals Pending for " + empname.ToString();
@@ -890,7 +889,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         {
                             foreach (var emp in lstCluster)
                             {
-                                string status = "Submitted"; // ConfigurationManager.AppSettings["skillstatus"];
+                                string status = "Submitted"; // ParameterStoreConfig.GetAppSetting("skillstatus");
                                                              // var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.TeamMemberID && e.SkillStatus == status).FirstOrDefault();
                                var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.TeamMemberID && (e.SkillStatus == status || e.SkillStatus == "Approved") && ( e.IsReviewed == null || e.IsReviewed == false)).FirstOrDefault();
                                 //var yettpprove = db.EmployeeSkills_New.Where(e => e.EmployeeId == emp.TeamMemberID && e.SkillStatus == status).FirstOrDefault();  
@@ -908,7 +907,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         empname = empt.name;
 
                                     Notifications objnotifications = new Notifications();
-                                    objnotifications.ApplicationCode = ConfigurationManager.AppSettings["AppcodeSkills"].ToString();
+                                    objnotifications.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppcodeSkills").ToString();
                                     objnotifications.AssetID = yettpprove.EmployeeId.ToString();
                                     objnotifications.RequestName = empname.ToString();
                                     objnotifications.NotificationMessage = "This is inform you that the Skills Approvals Pending for " + empname.ToString();
@@ -997,7 +996,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 TempData["TimesheetID"] = id;
                 //return RedirectToAction("MyTimeSheetWeekWise", "MyTimeSheetWeekWise");
                 //return Redirect("http://172.16.0.217/Timesheet/MyTimeSheetWeekWise/MyTimeSheetWeekWise?TimesheetID="+ id);
-                return Redirect("http://172.16.0.217/Timesheet/AllTimeSheets/AllTimeSheets");
+                return Redirect(ParameterStoreConfig.GetAppSetting("TimesheetUrl") ?? "/Timesheet/AllTimeSheets/AllTimeSheets");
             }
             }
             catch (Exception ex)
@@ -1058,14 +1057,14 @@ namespace Trianz.Enterprise.Operations.Controllers
             {
                 #region timesheet
 
-                //if (AppCode == ConfigurationManager.AppSettings["AppCodeTimesheet"])
+                //if (AppCode == ParameterStoreConfig.GetAppSetting("AppCodeTimesheet"))
                 //{
                 //    int TimesheetID = Convert.ToInt32(AppId);
                 //    if (TimesheetID != 0)
                 //    {
                 //        var GetTimeSheetForApproval = (from tSheet in db.Timesheets where tSheet.TimesheetID == TimesheetID select tSheet).FirstOrDefault();
                 //        GetTimeSheetForApproval.ApprovedBy = GetTimeSheetForApproval.ProjectManagerID;
-                //        GetTimeSheetForApproval.Status = ConfigurationManager.AppSettings["_Reject"];
+                //        GetTimeSheetForApproval.Status = ParameterStoreConfig.GetAppSetting("_Reject");
 
                 //        var TimesheetDetails = (from s in db.Timesheets
                 //                                where s.TimesheetID == TimesheetID
@@ -1075,14 +1074,14 @@ namespace Trianz.Enterprise.Operations.Controllers
                 //                                    ToDate = s.ToDate
                 //                                }).FirstOrDefault();
                 //        Notification tblNotification = new Notification();
-                //        tblNotification.NotificationType = ConfigurationManager.AppSettings["_Reject"];
+                //        tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("_Reject");
                 //        tblNotification.NotificationDate = System.DateTime.Now;
                 //        tblNotification.NotificationFrom = (from s in db.Timesheets where s.TimesheetID == TimesheetID select s.ProjectManagerID).FirstOrDefault();
                 //        tblNotification.NotificationTo = (from s in db.Timesheets where s.TimesheetID == TimesheetID select s.EmployeeId).FirstOrDefault();
-                //        var Body = ConfigurationManager.AppSettings["ApprovePrefix"] + TimesheetDetails.FromDate.Date.ToString("MM/dd/yyyy") + " - " + TimesheetDetails.ToDate.Date.ToString("MM/dd/yyyy") + ConfigurationManager.AppSettings["rejectSuffix"] + ". </br> </br> Remsrks: " + _Remarks;
+                //        var Body = ParameterStoreConfig.GetAppSetting("ApprovePrefix") + TimesheetDetails.FromDate.Date.ToString("MM/dd/yyyy") + " - " + TimesheetDetails.ToDate.Date.ToString("MM/dd/yyyy") + ParameterStoreConfig.GetAppSetting("rejectSuffix") + ". </br> </br> Remsrks: " + _Remarks;
                 //        tblNotification.IsActive = true;
                 //        tblNotification.AssetID = Convert.ToString(TimesheetID);
-                //        tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTimesheet"].ToString();
+                //        tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTimesheet").ToString();
                 //        string body = string.Empty;
                 //        using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
                 //        {
@@ -1095,7 +1094,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 //        tblNotification.NotificationMessage = body;
 
 
-                //        string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+                //        string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
                 //        bool IsEmail = Convert.ToBoolean(IsEmailSent);
                 //        if (IsEmail == true)
                 //        {
@@ -1115,7 +1114,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 //                           {
                 //                               ManagerName = s.FirstName + " - " + s.LastName
                 //                           }).SingleOrDefault();
-                //        comments.Comments = ConfigurationManager.AppSettings["TimesheetRejectby"] + ManagerName.ManagerName;
+                //        comments.Comments = ParameterStoreConfig.GetAppSetting("TimesheetRejectby") + ManagerName.ManagerName;
                 //        db.TimesheetComment.Add(comments);
 
                 //        if (_Remarks != "")
@@ -1123,7 +1122,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 //            TimesheetComments tscomments = new TimesheetComments();
                 //            tscomments.TimesheetID = TimesheetID;
                 //            tscomments.CommentedDate = System.DateTime.Now;
-                //            tscomments.Comments = ConfigurationManager.AppSettings["rejectcomments"] + _Remarks;
+                //            tscomments.Comments = ParameterStoreConfig.GetAppSetting("rejectcomments") + _Remarks;
                 //            db.TimesheetComment.Add(tscomments);
                 //        }
 
@@ -1134,7 +1133,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 #endregion
 
                 #region hrrfs
-                if (AppCode == ConfigurationManager.AppSettings["AppCodeTR"].ToString())
+                if (AppCode == ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString())
                 {
 					//string UName = User.Identity.Name.Substring(7);
 					string usermail = Common.GetAzureLoggedInUserID();
@@ -1150,7 +1149,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     TempData["hrrfno"] = HRRFNumber;
                     //var objHRRF = db.HRRFs.Where(c => c.HRRFNumber == HRRFNumber).FirstOrDefault();
                     //var hrrfAcceptReject = db.ExternalFulfillments.Where(h => h.HRRFNumber == HRRFNumber).ToList().FirstOrDefault();
-                    //hrrfAcceptReject.ApprovalStatus = ConfigurationManager.AppSettings["_Reject"] ;
+                    //hrrfAcceptReject.ApprovalStatus = ParameterStoreConfig.GetAppSetting("_Reject") ;
                     //hrrfAcceptReject.Remarks = _Remarks; // needs to get from popup
                     //hrrfAcceptReject.ApprovedBy = EmployeeID.EmployeeId.ToString(); //need to get logged in user id
                     //hrrfAcceptReject.ApprovedDate = DateTime.Now;
@@ -1160,43 +1159,40 @@ namespace Trianz.Enterprise.Operations.Controllers
                     //TempData["hrrfno"] = HRRFNumber;
                     var objHRRF = db.HRRFs.Where(c => c.HRRFNumber == HRRFNumber).FirstOrDefault();
                     var hrrfAcceptReject = db.ExternalFulfillments.Where(h => h.HRRFNumber == HRRFNumber).ToList().FirstOrDefault();
-                    hrrfAcceptReject.ApprovalStatus = ConfigurationManager.AppSettings["_Reject"];
+                    hrrfAcceptReject.ApprovalStatus = ParameterStoreConfig.GetAppSetting("_Reject");
                     hrrfAcceptReject.Remarks = _Remarks; // needs to get from popup
                     hrrfAcceptReject.ApprovedBy = objHRRF.HRRFCreatedBy.ToString(); //need to get logged in user id
-                    hrrfAcceptReject.ApprovedDate = DateTime.Now;
+                    hrrfAcceptReject.ApprovedDate = DateTime.UtcNow;
                     db.Entry(hrrfAcceptReject).State = System.Data.Entity.EntityState.Modified;
                     // hrrf request type Status
-                    objHRRF.RequestType = ConfigurationManager.AppSettings["I_RequestType"].ToString();
-                    objHRRF.RequestStatus = ConfigurationManager.AppSettings["TR_Qualified"].ToString();
+                    objHRRF.RequestType = ParameterStoreConfig.GetAppSetting("I_RequestType").ToString();
+                    objHRRF.RequestStatus = ParameterStoreConfig.GetAppSetting("TR_Qualified").ToString();
                     db.Entry(objHRRF).State = System.Data.Entity.EntityState.Modified;
                     //HRRF Histroy
                     var objHrrfHistory = new HRRFHistory();
                     objHrrfHistory.HRRFNumber = HRRFNumber;
                     objHrrfHistory.HistoryDescription = HRRFNumber + "-" + "has been Rejected for External";
                     objHrrfHistory.ModifiedBy = Convert.ToInt32(Session["EmployeeId"]);
-                    objHrrfHistory.ModifiedDate = DateTime.Now;
+                    objHrrfHistory.ModifiedDate = DateTime.UtcNow;
                     db.HRRFHistories.Add(objHrrfHistory);
 
 
                     //notifications
 
                     Notification tblNotification = new Notification();
-                    tblNotification.NotificationType = ConfigurationManager.AppSettings["TrExtFulfilRej_NOtification"].ToString();
-                    tblNotification.NotificationDate = System.DateTime.Now;
+                    tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("TrExtFulfilRej_NOtification").ToString();
+                    tblNotification.NotificationDate = System.DateTime.UtcNow;
 
                     var raisedby = db.HRRFs.Where(r => r.HRRFNumber == AppId).FirstOrDefault();
                     tblNotification.NotificationFrom = EmployeeID.EmployeeId;
                     tblNotification.NotificationTo = raisedby.HRRFCreatedBy;
-                    var Body = ConfigurationManager.AppSettings["ExternalFullReject"] + ConfigurationManager.AppSettings["TRNUMber"] + HRRFNumber + "</br> </br>" + ConfigurationManager.AppSettings["Remarks"] + _Remarks;
+                    var Body = ParameterStoreConfig.GetAppSetting("ExternalFullReject") + ParameterStoreConfig.GetAppSetting("TRNUMber") + HRRFNumber + "</br> </br>" + ParameterStoreConfig.GetAppSetting("Remarks") + _Remarks;
                     tblNotification.IsActive = true;
                     tblNotification.AssetID = Convert.ToString(HRRFNumber);
-                    tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                    tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
 
                     string body = string.Empty;
-                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
-                    {
-                        body = reader.ReadToEnd();
-                    }
+                    body = CloudFileHelper.ReadAllText("~/Views/Shared/EmailTemplate.html");
                     body = body.Replace("{ToUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationTo).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                     body = body.Replace("{FromUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationFrom).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                     body = body.Replace("{Description}", Body);
@@ -1204,7 +1200,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     tblNotification.NotificationMessage = body;
 
 
-                    string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+                    string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
                     bool IsEmail = Convert.ToBoolean(IsEmailSent);
                     if (IsEmail == true)
                     {
@@ -1233,27 +1229,27 @@ namespace Trianz.Enterprise.Operations.Controllers
                 #region timesheet code
 
 
-                //if (AppCode == ConfigurationManager.AppSettings["AppCodeTimesheet"])
+                //if (AppCode == ParameterStoreConfig.GetAppSetting("AppCodeTimesheet"))
                 //{
                 //    int TimeSheetID = Convert.ToInt32(AppId);
                 //    var TimesheetDetails = (from t in db.Timesheets where t.TimesheetID == TimeSheetID select new { FromDate = t.FromDate, ToDate = t.ToDate }).FirstOrDefault();
                 //    var GetStatusofTimeSheet = (from s in db.Timesheets where s.TimesheetID == TimeSheetID select s.Status).FirstOrDefault();
-                //    if (GetStatusofTimeSheet != ConfigurationManager.AppSettings["_Approve"])
+                //    if (GetStatusofTimeSheet != ParameterStoreConfig.GetAppSetting("_Approve"))
                 //    {
                 //        var GetTimeSheetForApproval = (from tSheet in db.Timesheets where tSheet.TimesheetID == TimeSheetID select tSheet).FirstOrDefault();
                 //        GetTimeSheetForApproval.ApprovedBy = GetTimeSheetForApproval.ProjectManagerID;
                 //        GetTimeSheetForApproval.syncdate = null;
-                //        GetTimeSheetForApproval.Status = ConfigurationManager.AppSettings["_Approve"];
+                //        GetTimeSheetForApproval.Status = ParameterStoreConfig.GetAppSetting("_Approve");
 
                 //        Notification tblNotification = new Notification();
-                //        tblNotification.NotificationType = ConfigurationManager.AppSettings["_Approve"];
+                //        tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("_Approve");
                 //        tblNotification.NotificationDate = System.DateTime.Now;
                 //        tblNotification.NotificationFrom = (from s in db.Timesheets where s.TimesheetID == TimeSheetID select s.ProjectManagerID).FirstOrDefault();
                 //        tblNotification.NotificationTo = (from s in db.Timesheets where s.TimesheetID == TimeSheetID select s.EmployeeId).FirstOrDefault();
-                //        var Body = ConfigurationManager.AppSettings["ApprovePrefix"] + TimesheetDetails.FromDate.Date.ToString("MM/dd/yyyy") + "-" + TimesheetDetails.ToDate.Date.ToString("MM/dd/yyyy") + ConfigurationManager.AppSettings["ApproveSuffix"];
+                //        var Body = ParameterStoreConfig.GetAppSetting("ApprovePrefix") + TimesheetDetails.FromDate.Date.ToString("MM/dd/yyyy") + "-" + TimesheetDetails.ToDate.Date.ToString("MM/dd/yyyy") + ParameterStoreConfig.GetAppSetting("ApproveSuffix");
                 //        tblNotification.IsActive = true;
                 //        tblNotification.AssetID = Convert.ToString(TimeSheetID);
-                //        tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTimesheet"];
+                //        tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTimesheet");
                 //        string body = string.Empty;
                 //        using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
                 //        {
@@ -1277,10 +1273,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                 //                           {
                 //                               ManagerName = name.FirstName + " " + name.LastName
                 //                           }).FirstOrDefault();
-                //        comments.Comments = ConfigurationManager.AppSettings["TimesheetAppoveby"] + ManagerName.ManagerName;
+                //        comments.Comments = ParameterStoreConfig.GetAppSetting("TimesheetAppoveby") + ManagerName.ManagerName;
                 //        db.TimesheetComment.Add(comments);
 
-                //        string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+                //        string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
                 //        bool IsEmail = Convert.ToBoolean(IsEmailSent);
                 //        if (IsEmail == true)
                 //        {
@@ -1293,7 +1289,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 #endregion
 
                 #region hrrfs
-                if (AppCode == ConfigurationManager.AppSettings["AppCodeTR"])
+                if (AppCode == ParameterStoreConfig.GetAppSetting("AppCodeTR"))
                 {
 					//string UName = User.Identity.Name.Substring(7);
 					string usermail = Common.GetAzureLoggedInUserID();
@@ -1309,7 +1305,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     //TempData["hrrfno"] = HRRFNumber;
                     //var objHRRF = db.HRRFs.Where(c => c.HRRFNumber == HRRFNumber).FirstOrDefault();
                     //var hrrfAcceptReject = db.ExternalFulfillments.Where(h => h.HRRFNumber == HRRFNumber).ToList().FirstOrDefault();
-                    //hrrfAcceptReject.ApprovalStatus = ConfigurationManager.AppSettings["_Accept"]; 
+                    //hrrfAcceptReject.ApprovalStatus = ParameterStoreConfig.GetAppSetting("_Accept"); 
                     //hrrfAcceptReject.Remarks = _Remarks; // needs to get from popup
                     //hrrfAcceptReject.ApprovedBy = EmployeeID.EmployeeId.ToString(); //need to get logged in user id
                     //hrrfAcceptReject.ApprovedDate = DateTime.Now;
@@ -1320,14 +1316,14 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                     // update hrrf status
                     var objHRRF = db.HRRFs.Where(c => c.HRRFNumber == HRRFNumber).FirstOrDefault();
-                    objHRRF.RequestStatus = ConfigurationManager.AppSettings["E_RequestType"].ToString();
+                    objHRRF.RequestStatus = ParameterStoreConfig.GetAppSetting("E_RequestType").ToString();
 
                     db.Entry(objHRRF).State = System.Data.Entity.EntityState.Modified;
 
                     ExternalFulfillment hrrfAcceptReject = db.ExternalFulfillments.Where(h => h.HRRFNumber == HRRFNumber).FirstOrDefault();
-                    hrrfAcceptReject.ApprovalStatus = ConfigurationManager.AppSettings["ExternalAccepted"].ToString();
+                    hrrfAcceptReject.ApprovalStatus = ParameterStoreConfig.GetAppSetting("ExternalAccepted").ToString();
                     hrrfAcceptReject.ApprovedBy = objHRRF.HRRFCreatedBy.ToString(); //need to get logged in user id
-                    hrrfAcceptReject.ApprovedDate = DateTime.Now;
+                    hrrfAcceptReject.ApprovedDate = DateTime.UtcNow;
                     hrrfAcceptReject.Remarks = _Remarks;
 
                     db.Entry(hrrfAcceptReject).State = System.Data.Entity.EntityState.Modified;
@@ -1337,27 +1333,24 @@ namespace Trianz.Enterprise.Operations.Controllers
                     objHrrfHistory.HRRFNumber = HRRFNumber;
                     objHrrfHistory.HistoryDescription = HRRFNumber + "-" + "has been Accepted for External";
                     objHrrfHistory.ModifiedBy = Convert.ToInt32(Session["EmployeeId"]);
-                    objHrrfHistory.ModifiedDate = DateTime.Now;
+                    objHrrfHistory.ModifiedDate = DateTime.UtcNow;
 
                     db.HRRFHistories.Add(objHrrfHistory);
 
                     //notifications
                     Notification tblNotification = new Notification();
-                    tblNotification.NotificationType = ConfigurationManager.AppSettings["TrExtFulfilAcep_NOtification"];
-                    tblNotification.NotificationDate = System.DateTime.Now;
+                    tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("TrExtFulfilAcep_NOtification");
+                    tblNotification.NotificationDate = System.DateTime.UtcNow;
 
                     var raisedby = db.HRRFs.Where(r => r.HRRFNumber == AppId).FirstOrDefault();
                     tblNotification.NotificationFrom = EmployeeID.EmployeeId;
                     tblNotification.NotificationTo = raisedby.HRRFCreatedBy;
-                    var Body = ConfigurationManager.AppSettings["ExternalFullAccept"] + ConfigurationManager.AppSettings["TRNUMber"] + HRRFNumber + ConfigurationManager.AppSettings["Remarks"] + _Remarks;
+                    var Body = ParameterStoreConfig.GetAppSetting("ExternalFullAccept") + ParameterStoreConfig.GetAppSetting("TRNUMber") + HRRFNumber + ParameterStoreConfig.GetAppSetting("Remarks") + _Remarks;
                     tblNotification.IsActive = true;
                     tblNotification.AssetID = Convert.ToString(HRRFNumber);
-                    tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"];
+                    tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR");
                     string body = string.Empty;
-                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
-                    {
-                        body = reader.ReadToEnd();
-                    }
+                    body = CloudFileHelper.ReadAllText("~/Views/Shared/EmailTemplate.html");
                     body = body.Replace("{ToUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationTo).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                     body = body.Replace("{FromUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationFrom).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                     body = body.Replace("{Description}", Body);
@@ -1365,7 +1358,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     tblNotification.NotificationMessage = body;
 
 
-                    string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+                    string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
                     bool IsEmail = Convert.ToBoolean(IsEmailSent);
                     if (IsEmail == true)
                     {

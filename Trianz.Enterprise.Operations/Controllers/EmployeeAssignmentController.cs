@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Trianz.Enterprise.Operations.Models;
-using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Data;
 using System.Data.Entity.Core.EntityClient;
@@ -18,9 +17,9 @@ namespace Trianz.Enterprise.Operations.Controllers
     {
         TrianzOperationsEntities db = new TrianzOperationsEntities();
 
-        string AllReleasedates = System.Configuration.ConfigurationManager.AppSettings["All_Releasedates"].ToString();
-        string BeforeReleasedates = System.Configuration.ConfigurationManager.AppSettings["Before_Releasedates"].ToString();
-        string AfterRelasedates = System.Configuration.ConfigurationManager.AppSettings["After_Relasedates"].ToString();
+        string AllReleasedates = ParameterStoreConfig.GetAppSetting("All_Releasedates").ToString();
+        string BeforeReleasedates = ParameterStoreConfig.GetAppSetting("Before_Releasedates").ToString();
+        string AfterRelasedates = ParameterStoreConfig.GetAppSetting("After_Relasedates").ToString();
 
         // GET: EmployeeAssignment
         public ActionResult Index()
@@ -120,7 +119,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 {
                     var AllProjects = (from pro in db.Projects
                                       // where pro.IsActive == true
-                                      where pro.IsActive == true && pro.SOWEndDate >= DateTime.Now
+                                      where pro.IsActive == true && pro.SOWEndDate >= DateTime.UtcNow
                                        select new SelectListItem
                                        {
                                            Value = pro.ProjectCode,
@@ -468,7 +467,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         {
             var AllProjects = (from pro in db.Projects
                              // where pro.IsActive == true
-                              where pro.IsActive == true && pro.SOWEndDate >= DateTime.Now
+                              where pro.IsActive == true && pro.SOWEndDate >= DateTime.UtcNow
                                select new SelectListItem
                                {
                                    Value = pro.ProjectCode,
@@ -524,7 +523,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             //  objProjectAssignment.IsActive = true;
 
                           //  newly added on 8th june
-                            if (eachEmployee.StartDate > DateTime.Now.Date)
+                            if (eachEmployee.StartDate > DateTime.UtcNow.Date)
                             {
                                 objProjectAssignment.IsActive = false;
                             }
@@ -535,10 +534,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                            // newly added on 8th june
 
                             objProjectAssignment.Assigned_By = Convert.ToString(Session["EmployeeId"]);
-                            objProjectAssignment.Assigned_Date = DateTime.Now;
+                            objProjectAssignment.Assigned_Date = DateTime.UtcNow;
                             objProjectAssignment.ProjectCode = db.Projects.Where(p => p.ProjectCode == eachEmployee.ProjectName).FirstOrDefault().ProjectCode;
                             objProjectAssignment.BillingStatus = eachEmployee.resourceType;
-                            objProjectAssignment.CreatedDate = DateTime.Now;
+                            objProjectAssignment.CreatedDate = DateTime.UtcNow;
                             objProjectAssignment.OrganisationGroup = eachEmployee.OrgGroup;
                             objProjectAssignment.OrganisationSubGroup = eachEmployee.OrgSubGroup;
 
@@ -560,7 +559,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             pash.StartDateOld = null;
                             pash.UtilizationOld = null;
                             pash.modifiedBy = EmpID;
-                            pash.ModifiedDate = DateTime.Now;
+                            pash.ModifiedDate = DateTime.UtcNow;
                             pash.UtilizationNew = Convert.ToInt32(eachEmployee.Utilization);
                             pash.StartDateNew = Convert.ToDateTime(eachEmployee.StartDate);
                             pash.IsActiveNew = true;
@@ -713,7 +712,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 {
                     var AllProjects = (from pro in db.Projects
                                      //  where pro.IsActive == true
-                                      where pro.IsActive == true && pro.SOWEndDate >= DateTime.Now
+                                      where pro.IsActive == true && pro.SOWEndDate >= DateTime.UtcNow
                                        select new SelectListItem
                                        {
                                            Value = pro.ProjectCode,
@@ -829,7 +828,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         objdata.DetailedFeedBack = employeeDetails.DetailedFeedBack;
                         objdata.ResourcePerformance = employeeDetails.ResourcePerformance;
                         objdata.ReleasedBy = Convert.ToInt32(Session["EmployeeId"]);
-                        objdata.ReleaseAuditDate = DateTime.Now;
+                        objdata.ReleaseAuditDate = DateTime.UtcNow;
                         db.Entry(objdata).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                         //ViewData["message"] = "Description updated suscessfully...";
@@ -893,7 +892,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         }
         public ActionResult GenerateResourceReleaseReport(string data)
         {
-            DateTime releasedate = Convert.ToDateTime((DateTime.Now).ToString("yyyy-MM-dd"));
+            DateTime releasedate = Convert.ToDateTime((DateTime.UtcNow).ToString("yyyy-MM-dd"));
             if (Convert.ToInt32(Session["EmployeeId"]) > 0)
             {
                 try
@@ -1029,7 +1028,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             Byte[] fileBytes = package.GetAsByteArray();
                             Response.Clear();
                             Response.Buffer = true;
-                            Response.AddHeader("content-disposition", "attachment;filename=" + "Project Release Report" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                            Response.AddHeader("content-disposition", "attachment;filename=" + "Project Release Report" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                             Response.Charset = "";
                             Response.ContentType = "application/vnd.ms-excel";
@@ -1167,7 +1166,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             Byte[] fileBytes = package.GetAsByteArray();
                             Response.Clear();
                             Response.Buffer = true;
-                            Response.AddHeader("content-disposition", "attachment;filename=" + "Project Release Report" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                            Response.AddHeader("content-disposition", "attachment;filename=" + "Project Release Report" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                             Response.Charset = "";
                             Response.ContentType = "application/vnd.ms-excel";
@@ -1302,7 +1301,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             Byte[] fileBytes = package.GetAsByteArray();
                             Response.Clear();
                             Response.Buffer = true;
-                            Response.AddHeader("content-disposition", "attachment;filename=" + "Project Release Report" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                            Response.AddHeader("content-disposition", "attachment;filename=" + "Project Release Report" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                             Response.Charset = "";
                             Response.ContentType = "application/vnd.ms-excel";
@@ -1544,8 +1543,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                         //{
                         //    objdata.IsActive = false;
                         //}
-                        objdata.Assigned_Date = DateTime.Now;
-                        objdata.ModifiedDate = DateTime.Now;
+                        objdata.Assigned_Date = DateTime.UtcNow;
+                        objdata.ModifiedDate = DateTime.UtcNow;
                         db.Entry(objdata).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                         sucessmsg = "Data Saved successfully";
@@ -1607,7 +1606,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         objProjectAssignment.Assigned_By = dataToRemove.Assigned_By;
                         objProjectAssignment.Assigned_Date = dataToRemove.Assigned_Date;
                         objProjectAssignment.Deleted_By = Convert.ToString(Session["EmployeeId"]);
-                        objProjectAssignment.Deleted_Date = DateTime.Now;
+                        objProjectAssignment.Deleted_Date = DateTime.UtcNow;
                         objProjectAssignment.ProjectCode = dataToRemove.ProjectCode;
                         objProjectAssignment.BillingStatus = dataToRemove.BillingStatus;
                         objProjectAssignment.CreatedDate = dataToRemove.CreatedDate;

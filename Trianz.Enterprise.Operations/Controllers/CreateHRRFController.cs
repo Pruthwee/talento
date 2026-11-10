@@ -3,7 +3,6 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -24,16 +23,16 @@ namespace Trianz.Enterprise.Operations.Controllers
         private TrianzOperationsEntities db = new TrianzOperationsEntities();
         ServiceAgent AgentService = new ServiceAgent();
         // Get constant values from web.config
-        string TR_Terminate = System.Configuration.ConfigurationManager.AppSettings["TR_Terminate"].ToString();
-        string TR_Submit = System.Configuration.ConfigurationManager.AppSettings["TR_Submit"].ToString();
-        string TR_Submitted = System.Configuration.ConfigurationManager.AppSettings["TR_Submitted"].ToString();
-        string TR_Save = System.Configuration.ConfigurationManager.AppSettings["TR_Save"].ToString();
-        string TR_Draft = System.Configuration.ConfigurationManager.AppSettings["TR_Draft"].ToString();
-        string TR_TerminateCheck = System.Configuration.ConfigurationManager.AppSettings["TR_TerminateCheck"].ToString();
-        string TR_CompanyCode = System.Configuration.ConfigurationManager.AppSettings["TR_CompanyCode"].ToString();
-        string TR_Internal = System.Configuration.ConfigurationManager.AppSettings["TR_Internal"].ToString();
-        string TR_Clear = System.Configuration.ConfigurationManager.AppSettings["TR_Clear"].ToString();
-        string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+        string TR_Terminate = ParameterStoreConfig.GetAppSetting("TR_Terminate").ToString();
+        string TR_Submit = ParameterStoreConfig.GetAppSetting("TR_Submit").ToString();
+        string TR_Submitted = ParameterStoreConfig.GetAppSetting("TR_Submitted").ToString();
+        string TR_Save = ParameterStoreConfig.GetAppSetting("TR_Save").ToString();
+        string TR_Draft = ParameterStoreConfig.GetAppSetting("TR_Draft").ToString();
+        string TR_TerminateCheck = ParameterStoreConfig.GetAppSetting("TR_TerminateCheck").ToString();
+        string TR_CompanyCode = ParameterStoreConfig.GetAppSetting("TR_CompanyCode").ToString();
+        string TR_Internal = ParameterStoreConfig.GetAppSetting("TR_Internal").ToString();
+        string TR_Clear = ParameterStoreConfig.GetAppSetting("TR_Clear").ToString();
+        string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
 
         // GET: CreateHRRF
         public ActionResult Index()
@@ -281,7 +280,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 hrrfaud.UtilizationNew = hrrfvaluesnew.Utilization;
                 hrrfaud.BillingDateNew = hrrfvaluesnew.BillingDate;
                 hrrfaud.IsContractingNew = hrrfvaluesnew.IsContracting;
-                hrrfaud.ModifiedDate = DateTime.Now;
+                hrrfaud.ModifiedDate = DateTime.UtcNow;
 
                 hrrfaud.Discipline = hrrfvalues.Discipline;
                 hrrfaud.RoleGroup = hrrfvalues.RoleGroup;
@@ -473,10 +472,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     }
                                     hRRF.ClientInterview = client;
                                     hRRF.Positions = 1;
-                                    hRRF.HRRFSubmitedDate = DateTime.Now;
-                                    hRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
+                                    hRRF.HRRFSubmitedDate = DateTime.UtcNow;
+                                    hRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
                                     hRRF.ModifiedBy = EmpIdForCreatedBy;
-                                    hRRF.ModifiedDate = DateTime.Now;
+                                    hRRF.ModifiedDate = DateTime.UtcNow;
                                     hRRF.OrganizationGroup = Request.Form["OrganizationGroup"];
                                     db.Entry(hRRF).State = EntityState.Modified;
 
@@ -497,8 +496,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         objMasterLookup.ParentCode = "1";
                                         objMasterLookup.ParentName = "LocationType";
                                         objMasterLookup.Active = true;
-                                        objMasterLookup.DateCreated = DateTime.Now;
-                                        objMasterLookup.DateModified = DateTime.Now;
+                                        objMasterLookup.DateCreated = DateTime.UtcNow;
+                                        objMasterLookup.DateModified = DateTime.UtcNow;
 
                                         db.MasterLookUps.Add(objMasterLookup);
                                     }
@@ -602,12 +601,12 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         hRRF.RoleRequired = Request.Form["RoleRequired"];
                                     }
                                     hRRF.ClientInterview = client;
-                                    hRRF.HRRFSubmitedDate = DateTime.Now;
+                                    hRRF.HRRFSubmitedDate = DateTime.UtcNow;
                                     hRRF.ModifiedBy = EmpIdForCreatedBy;
-                                    hRRF.ModifiedDate = DateTime.Now;
+                                    hRRF.ModifiedDate = DateTime.UtcNow;
                                     //    hRRF.HRRFCreatedBy = EmpIdForCreatedBy;
                                     //    hRRF.HRRFCreatedDate = DateTime.Now;
-                                    hRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
+                                    hRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
                                     hRRF.Positions = 1;
                                     hRRF.OrganizationGroup = Request.Form["OrganizationGroup"];
                                     db.HRRFs.Add(hRRF);
@@ -713,7 +712,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     }
                                     //   hRRF.HRRFSubmitedDate = DateTime.Now;
                                     hRRF.ModifiedBy = EmpIdForCreatedBy;
-                                    hRRF.ModifiedDate = DateTime.Now;
+                                    hRRF.ModifiedDate = DateTime.UtcNow;
                                     // hRRF.Discipline = Request.Form["Discipline"].ToString();
                                     //hRRF.RoleGroup = Request.Form["RoleGroup"].ToString();
                                     hRRF.CoreSkill = form["HRRF.CoreSkill"];// Request.Form["CoreSkill"].ToString();
@@ -768,8 +767,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         objMasterLookup.ParentCode = "1";
                                         objMasterLookup.ParentName = "LocationType";
                                         objMasterLookup.Active = true;
-                                        objMasterLookup.DateCreated = DateTime.Now;
-                                        objMasterLookup.DateModified = DateTime.Now;
+                                        objMasterLookup.DateCreated = DateTime.UtcNow;
+                                        objMasterLookup.DateModified = DateTime.UtcNow;
 
                                         db.MasterLookUps.Add(objMasterLookup);
                                     }
@@ -892,7 +891,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     hRRF.RequestStatus = TR_Draft;
                                     hRRF.ClientInterview = client;
                                     hRRF.ModifiedBy = EmpIdForCreatedBy;
-                                    hRRF.ModifiedDate = DateTime.Now;
+                                    hRRF.ModifiedDate = DateTime.UtcNow;
                                     //           hRRF.HRRFSubmitedDate = DateTime.Now;
                                     //           hRRF.HRRFCreatedBy = EmpIdForCreatedBy;
                                     //          hRRF.HRRFCreatedDate = DateTime.Now;
@@ -969,7 +968,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             hRRF.RequestStatus = TR_Terminate;
                             hRRF.ClientInterview = client;
                             hRRF.ModifiedBy = Convert.ToInt32(Session["EmployeeId"]);
-                            hRRF.ModifiedDate = DateTime.Now;
+                            hRRF.ModifiedDate = DateTime.UtcNow;
                             hRRF.IsActive = false;
                             db.Entry(hRRF).State = EntityState.Modified;
                             db.SaveChanges();
@@ -1637,8 +1636,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         objMasterLookup.ParentCode = "1";
                                         objMasterLookup.ParentName = "LocationType";
                                         objMasterLookup.Active = true;
-                                        objMasterLookup.DateCreated = DateTime.Now;
-                                        objMasterLookup.DateModified = DateTime.Now;
+                                        objMasterLookup.DateCreated = DateTime.UtcNow;
+                                        objMasterLookup.DateModified = DateTime.UtcNow;
 
                                         db.MasterLookUps.Add(objMasterLookup);
                                     }
@@ -1743,9 +1742,9 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     HRRF.HRRFCreatedBy = EmpIdForCreatedBy;
                                     HRRF.Isparent = isParent;
                                     HRRF.IsActive = true;
-                                    HRRF.HRRFCreatedDate = DateTime.Now;
-                                    HRRF.InternalExpectedFulfilmentDate = DateTime.Now.AddDays(5);
-                                    HRRF.HRRFSubmitedDate = DateTime.Now;
+                                    HRRF.HRRFCreatedDate = DateTime.UtcNow;
+                                    HRRF.InternalExpectedFulfilmentDate = DateTime.UtcNow.AddDays(5);
+                                    HRRF.HRRFSubmitedDate = DateTime.UtcNow;
 
                                     HRRF.PrimaryPractice = Request.Form["hdnPrimaryPractice"];
                                     HRRF.JDNotMatching = Request.Form["JDNotMatching"] != null ? Request.Form["JDNotMatching"] : "No";
@@ -1856,8 +1855,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                                         objMasterLookup.ParentCode = "1";
                                         objMasterLookup.ParentName = "LocationType";
                                         objMasterLookup.Active = true;
-                                        objMasterLookup.DateCreated = DateTime.Now;
-                                        objMasterLookup.DateModified = DateTime.Now;
+                                        objMasterLookup.DateCreated = DateTime.UtcNow;
+                                        objMasterLookup.DateModified = DateTime.UtcNow;
 
                                         db.MasterLookUps.Add(objMasterLookup);
                                     }
@@ -1957,7 +1956,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     HRRF.HRRFCreatedBy = EmpIdForCreatedBy;
                                     HRRF.Isparent = isParent;
                                     HRRF.IsActive = true;
-                                    HRRF.HRRFCreatedDate = DateTime.Now;
+                                    HRRF.HRRFCreatedDate = DateTime.UtcNow;
                                     // HRRF.HRRFSubmitedDate = DateTime.Now;
 
                                     HRRF.Discipline = Request.Form["Discipline"];
@@ -2090,7 +2089,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 // HRRFPrimarySkill.ExpertiseLevel = 1;
                                 HRRFPrimarySkill.IsMandatoy = isMandatory;
                                 HRRFPrimarySkill.ModifiedBy = Convert.ToString(Session["EmployeeId"]);
-                                HRRFPrimarySkill.ModifiedDate = DateTime.Now;
+                                HRRFPrimarySkill.ModifiedDate = DateTime.UtcNow;
                                 //db.Entry(HRRFPrimarySkills).State = EntityState.Modified;
                                 db.SaveChanges();
                             }
@@ -2103,7 +2102,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 //  HRRFPrimarySkill.ExpertiseLevel = 2;
                                 HRRFPrimarySkill.IsMandatoy = isMandatory;
                                 HRRFPrimarySkill.CreatedBy = Convert.ToString(Session["EmployeeId"]);
-                                HRRFPrimarySkill.CreatedDate = DateTime.Now;
+                                HRRFPrimarySkill.CreatedDate = DateTime.UtcNow;
                                 db.HRRFSkills_ExpertiseLevel.Add(HRRFPrimarySkill);
                                 db.SaveChanges();
                             }
@@ -2214,7 +2213,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 HRRFPrimarySkill.Skills = Convert.ToInt64(PSkill.Split(':')[0]);
                                 HRRFPrimarySkill.Rating = Convert.ToInt32(PSkill.Split(':')[1]);
                                 HRRFPrimarySkill.CreatedBy = Convert.ToInt32(Session["EmployeeId"]);
-                                HRRFPrimarySkill.CreatedDate = DateTime.Now;
+                                HRRFPrimarySkill.CreatedDate = DateTime.UtcNow;
                                 db.Entry(HRRFPrimarySkills).State = EntityState.Modified;
                                 db.SaveChanges();
                             }
@@ -2226,7 +2225,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 HRRFPrimarySkill.Skills = Convert.ToInt64(PSkill.Split(':')[0]);
                                 HRRFPrimarySkill.Rating = Convert.ToInt32(PSkill.Split(':')[1]);
                                 HRRFPrimarySkill.CreatedBy = Convert.ToInt32(Session["EmployeeId"]);
-                                HRRFPrimarySkill.CreatedDate = DateTime.Now;
+                                HRRFPrimarySkill.CreatedDate = DateTime.UtcNow;
                                 db.HRRFSkills.Add(HRRFPrimarySkill);
                                 db.SaveChanges();
                             }
@@ -2248,7 +2247,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 HRRFSecondarySkills.Skills = Convert.ToInt64(SSkill.Split(':')[0]);
                                 HRRFSecondarySkills.Rating = Convert.ToInt32(SSkill.Split(':')[1]);
                                 HRRFSecondarySkills.CreatedBy = Convert.ToInt32(Session["EmployeeId"]);
-                                HRRFSecondarySkills.CreatedDate = DateTime.Now;
+                                HRRFSecondarySkills.CreatedDate = DateTime.UtcNow;
                                 db.Entry(HRRFSecondarySkills).State = EntityState.Modified;
                                 // db.HRRFSkills.Add(HRRFSecondarySkills);
                                 db.SaveChanges();
@@ -2261,7 +2260,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 HRRFSecondarySkill.Skills = Convert.ToInt64(SSkill.Split(':')[0]);
                                 HRRFSecondarySkill.Rating = Convert.ToInt32(SSkill.Split(':')[1]);
                                 HRRFSecondarySkill.CreatedBy = Convert.ToInt32(Session["EmployeeId"]);
-                                HRRFSecondarySkill.CreatedDate = DateTime.Now;
+                                HRRFSecondarySkill.CreatedDate = DateTime.UtcNow;
                                 db.HRRFSkills.Add(HRRFSecondarySkill);
                                 db.SaveChanges();
                             }
@@ -2325,7 +2324,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             HRRFPrimarySkill.Skills = Convert.ToInt64(PSkill.Split(':')[0]);
                             HRRFPrimarySkill.Rating = Convert.ToInt32(PSkill.Split(':')[1]);
                             HRRFPrimarySkill.CreatedBy = Convert.ToInt32(Session["EmployeeId"]);
-                            HRRFPrimarySkill.CreatedDate = DateTime.Now;
+                            HRRFPrimarySkill.CreatedDate = DateTime.UtcNow;
                             db.HRRFSkills.Add(HRRFPrimarySkill);
                             db.SaveChanges();
                         }
@@ -2340,7 +2339,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             HRRFSecondarySkill.Skills = Convert.ToInt64(SSkill.Split(':')[0]);
                             HRRFSecondarySkill.Rating = Convert.ToInt32(SSkill.Split(':')[1]);
                             HRRFSecondarySkill.CreatedBy = Convert.ToInt32(Session["EmployeeId"]);
-                            HRRFSecondarySkill.CreatedDate = DateTime.Now;
+                            HRRFSecondarySkill.CreatedDate = DateTime.UtcNow;
                             db.HRRFSkills.Add(HRRFSecondarySkill);
                             db.SaveChanges();
                         }
@@ -2602,7 +2601,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 HrrfHistory.HRRFNumber = HRRFNumber;
                 HrrfHistory.HistoryDescription = Description;
                 HrrfHistory.ModifiedBy = EmpIdForCreatedBy;
-                HrrfHistory.ModifiedDate = DateTime.Now;
+                HrrfHistory.ModifiedDate = DateTime.UtcNow;
                 HrrfHistory.PrevRequestStatus = PreviousRequestStatus;
 
                 db.HRRFHistories.Add(HrrfHistory);
@@ -2619,7 +2618,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         {
             try
             {
-                string[] strITOPS = ConfigurationManager.AppSettings["ITS-OPS"].Split(',');               
+                string[] strITOPS = ParameterStoreConfig.GetAppSetting("ITS-OPS").Split(',');               
                 var objHRRF = db.HRRFs.Where(p => p.HRRFNumber == HRRFNumber).FirstOrDefault();
                 // var oms = (db.RoleMasters.Where(s => (s.Practice == objHRRF.Practice && s.Role == "OM" && s.ApplicationCode == "TALENTREQ") || strITOPS.Contains(s.EmployeeId.ToString().Trim())).ToList());
                 if (objHRRF != null)
@@ -2674,13 +2673,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                         Notification tblNotification = new Notification();
                         if (SubjectName == "Edited")
                         {
-                            tblNotification.NotificationType = HRRFNumber.Trim() + " " + ConfigurationManager.AppSettings["TrEdited_NOtification"].ToString();
+                            tblNotification.NotificationType = HRRFNumber.Trim() + " " + ParameterStoreConfig.GetAppSetting("TrEdited_NOtification").ToString();
                         }
                         else
                         {
-                            tblNotification.NotificationType = HRRFNumber.Trim() + " " + ConfigurationManager.AppSettings["TrSubmitted_NOtification"].ToString();
+                            tblNotification.NotificationType = HRRFNumber.Trim() + " " + ParameterStoreConfig.GetAppSetting("TrSubmitted_NOtification").ToString();
                         }
-                        tblNotification.NotificationDate = System.DateTime.Now;
+                        tblNotification.NotificationDate = System.DateTime.UtcNow;
                         tblNotification.NotificationFrom = Convert.ToInt32(Session["EmployeeId"]);
                         tblNotification.NotificationTo = Convert.ToInt32(Session["EmployeeId"]);
                         string deliverymanager = "";
@@ -2717,7 +2716,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         }
                         else
                         {
-                            deliverymanager = ConfigurationManager.AppSettings["TRRestricted"].ToString();
+                            deliverymanager = ParameterStoreConfig.GetAppSetting("TRRestricted").ToString();
                         }
                         List<string> deliverymanagerlst = deliverymanager.Split(',').ToList();
                         
@@ -2728,15 +2727,15 @@ namespace Trianz.Enterprise.Operations.Controllers
                         StringBuilder sbBody = new StringBuilder();
                         if (tblNotification.NotificationType == HRRFNumber.Trim() + " Edited")
                         {
-                            sbBody.Append(ConfigurationManager.AppSettings["TrEdited"].ToString());
+                            sbBody.Append(ParameterStoreConfig.GetAppSetting("TrEdited").ToString());
                             sbBody.Append(" <b>" + loginEmpName + "</b> (EmpID: <b>" + loginEmpId + "</b>).");
                         }
                         else
                         {
-                            sbBody.Append(ConfigurationManager.AppSettings["TrSubmitted"].ToString());
+                            sbBody.Append(ParameterStoreConfig.GetAppSetting("TrSubmitted").ToString());
                             sbBody.Append(" <b>" + HRRFCreatedBy + "</b> (EmpID: <b>" + objEmp.EmployeeId + " </b>).");
                         }
-                        sbBody.Append(ConfigurationManager.AppSettings["TRNUMber"].ToString() + "<b>" + HRRFNumber.Trim() + ".</b><br/>");
+                        sbBody.Append(ParameterStoreConfig.GetAppSetting("TRNUMber").ToString() + "<b>" + HRRFNumber.Trim() + ".</b><br/>");
                         
                         //sbBody.Append(" <b> Job Description: </b>" + HRRFJobdescription + "<br/><br/>");
                         sbBody.Append(" <b> Job Description: </b>" + ClusterJD + "<br/><br/>");
@@ -2746,17 +2745,17 @@ namespace Trianz.Enterprise.Operations.Controllers
                         
                         if (tblNotification.NotificationType == HRRFNumber.Trim() + " Edited")
                         {
-                            sbBody.Append("<b>" + ConfigurationManager.AppSettings["EditedFields"] + "</b>" + "<br/>" + ch + "<br/>");
+                            sbBody.Append("<b>" + ParameterStoreConfig.GetAppSetting("EditedFields") + "</b>" + "<br/>" + ch + "<br/>");
                         }
-                        //var Body = ConfigurationManager.AppSettings["TrSubmitted"].ToString() + ConfigurationManager.AppSettings["TRNUMber"].ToString() + HRRFNumber.Trim();
+                        //var Body = ParameterStoreConfig.GetAppSetting("TrSubmitted").ToString() + ParameterStoreConfig.GetAppSetting("TRNUMber").ToString() + HRRFNumber.Trim();
                         
                         tblNotification.IsActive = true;
                         tblNotification.AssetID = Convert.ToString(HRRFNumber.Trim());
-                        tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+                        tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
                         tblNotification.IsFromGroupID = true;
                         tblNotification.FromGroupID = "donotreply_Talento@trianz.com";
                         
-                        string talentoURL = ConfigurationManager.AppSettings["Talento"];
+                        string talentoURL = ParameterStoreConfig.GetAppSetting("Talento");
                         string body = string.Empty;
                         
                         string Editlink = "";
@@ -2769,10 +2768,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             Editlink = "Please click on link to view the details of Submitted Talent Request number #";
                         }
                         string LinktoOpen = Editlink + HRRFNumber + " : " + talentoURL;
-                        using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
-                        {
-                            body = reader.ReadToEnd();
-                        }
+                        body = CloudFileHelper.ReadAllText("~/Views/Shared/EmailTemplate.html");
                         
                         body = body.Replace("{ToUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationTo).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                         body = body.Replace("{FromUserName}", "Talento Team");
@@ -2803,7 +2799,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         //{
         //    try
         //    {
-        //        string[] strITOPS = ConfigurationManager.AppSettings["ITS-OPS"].Split(',');
+        //        string[] strITOPS = ParameterStoreConfig.GetAppSetting("ITS-OPS").Split(',');
 
         //        var objHRRF = db.HRRFs.Where(p => p.HRRFNumber == HRRFNumber).FirstOrDefault();
         //       //  var oms = (db.RoleMasters.Where(s => (s.Practice == objHRRF.Practice && s.Role == "OM" && s.ApplicationCode == "TALENTREQ") || strITOPS.Contains(s.EmployeeId.ToString().Trim())).ToList());
@@ -2873,11 +2869,11 @@ namespace Trianz.Enterprise.Operations.Controllers
         //                Notification tblNotification = new Notification();
         //                if (SubjectName == "Edited")
         //                {
-        //                    tblNotification.NotificationType = HRRFNumber.Trim() + " " + ConfigurationManager.AppSettings["TrEdited_NOtification"].ToString();
+        //                    tblNotification.NotificationType = HRRFNumber.Trim() + " " + ParameterStoreConfig.GetAppSetting("TrEdited_NOtification").ToString();
         //                }
         //                else
         //                {
-        //                    tblNotification.NotificationType = HRRFNumber.Trim() + " " + ConfigurationManager.AppSettings["TrSubmitted_NOtification"].ToString();
+        //                    tblNotification.NotificationType = HRRFNumber.Trim() + " " + ParameterStoreConfig.GetAppSetting("TrSubmitted_NOtification").ToString();
         //                }
         //                tblNotification.NotificationDate = System.DateTime.Now;
         //                tblNotification.NotificationFrom = Convert.ToInt32(Session["EmployeeId"]);
@@ -2913,7 +2909,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         //                }
         //               else 
         //                {
-        //                    deliverymanager = ConfigurationManager.AppSettings["TRRestricted"].ToString();
+        //                    deliverymanager = ParameterStoreConfig.GetAppSetting("TRRestricted").ToString();
         //                }
 
         //                tblNotification.CC = deliverymanager;
@@ -2922,15 +2918,15 @@ namespace Trianz.Enterprise.Operations.Controllers
         //                StringBuilder sbBody = new StringBuilder();
         //                if (tblNotification.NotificationType == HRRFNumber.Trim() + " Edited")
         //                {
-        //                    sbBody.Append(ConfigurationManager.AppSettings["TrEdited"].ToString());
+        //                    sbBody.Append(ParameterStoreConfig.GetAppSetting("TrEdited").ToString());
         //                    sbBody.Append(" <b>" + loginEmpName + "</b> (EmpID: <b>" + loginEmpId + "</b>).");
         //                }
         //                else
         //                {
-        //                    sbBody.Append(ConfigurationManager.AppSettings["TrSubmitted"].ToString());
+        //                    sbBody.Append(ParameterStoreConfig.GetAppSetting("TrSubmitted").ToString());
         //                    sbBody.Append(" <b>" + HRRFCreatedBy + "</b> (EmpID: <b>" + objEmp.EmployeeId + " </b>).");
         //                }
-        //                sbBody.Append(ConfigurationManager.AppSettings["TRNUMber"].ToString() + "<b>" + HRRFNumber.Trim() + ".</b><br/>");
+        //                sbBody.Append(ParameterStoreConfig.GetAppSetting("TRNUMber").ToString() + "<b>" + HRRFNumber.Trim() + ".</b><br/>");
 
         //                //sbBody.Append(" <b> Job Description: </b>" + HRRFJobdescription + "<br/><br/>");
         //                sbBody.Append(" <b> Job Description: </b>" + ClusterJD + "<br/><br/>");
@@ -2943,17 +2939,17 @@ namespace Trianz.Enterprise.Operations.Controllers
 
         //                if (tblNotification.NotificationType == HRRFNumber.Trim() + " Edited")
         //                {
-        //                    sbBody.Append("<b>" + ConfigurationManager.AppSettings["EditedFields"] + "</b>" + "<br/>" + ch + "<br/>");
+        //                    sbBody.Append("<b>" + ParameterStoreConfig.GetAppSetting("EditedFields") + "</b>" + "<br/>" + ch + "<br/>");
         //                }
-        //                //var Body = ConfigurationManager.AppSettings["TrSubmitted"].ToString() + ConfigurationManager.AppSettings["TRNUMber"].ToString() + HRRFNumber.Trim();
+        //                //var Body = ParameterStoreConfig.GetAppSetting("TrSubmitted").ToString() + ParameterStoreConfig.GetAppSetting("TRNUMber").ToString() + HRRFNumber.Trim();
 
         //                tblNotification.IsActive = true;
         //                tblNotification.AssetID = Convert.ToString(HRRFNumber.Trim());
-        //                tblNotification.ApplicationCode = ConfigurationManager.AppSettings["AppCodeTR"].ToString();
+        //                tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("AppCodeTR").ToString();
         //                tblNotification.IsFromGroupID = true;
         //                tblNotification.FromGroupID = "donotreply_Talento@trianz.com";
 
-        //                string talentoURL = ConfigurationManager.AppSettings["Talento"];
+        //                string talentoURL = ParameterStoreConfig.GetAppSetting("Talento");
         //                string body = string.Empty;
 
         //                string Editlink = "";
@@ -3654,7 +3650,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             try
             {
                 var result = new List<KeyValuePair<string, string>>();
-                DateTime dt = DateTime.Now;
+                DateTime dt = DateTime.UtcNow;
                 IList<SelectListItem> List = new List<SelectListItem>();
 
                 var Empdetails = (from pro in db.Employees
@@ -3827,7 +3823,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
 
                     var _AllProjectNames = (from projects in db.Projects.
-                                           Where(p => p.IsActive == true && p.SOWEndDate >= DateTime.Today
+                                           Where(p => p.IsActive == true && p.SOWEndDate >= DateTime.UtcNow.Date
                                            )
                                             select new
                                             {

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
+using Trianz.Enterprise.Operations.General;
 
 namespace Trianz.Enterprise.Operations.Models
 {
     public class DemandData
     {
-        public static List<HRRF> allHRRFS;
-        public static List<Employee> Employees;
         public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -21,6 +21,14 @@ namespace Trianz.Enterprise.Operations.Models
 
         public static List<DemandData> GetData()
         {
+            // Check Redis distributed cache first (replaces static collection)
+            var cacheKey = "TrianzOperations:DemandTrend:GetData";
+            var cachedJson = RedisCacheHelper.StringGet(cacheKey);
+            if (!string.IsNullOrEmpty(cachedJson))
+            {
+                return JsonConvert.DeserializeObject<List<DemandData>>(cachedJson);
+            }
+
             var data = new List<DemandData>();
 
             data.Add(new DemandData("JAN", 10,9));
@@ -36,6 +44,10 @@ namespace Trianz.Enterprise.Operations.Models
             data.Add(new DemandData("NOV", 32,22));
             data.Add(new DemandData("DEC", 25,27));
 
+            // Cache in Redis for shared access across instances
+            var json = JsonConvert.SerializeObject(data);
+            RedisCacheHelper.StringSet(cacheKey, json, TimeSpan.FromMinutes(15));
+
             return data;
         }
 
@@ -43,19 +55,25 @@ namespace Trianz.Enterprise.Operations.Models
 
         public static List<DemandData> GetPieChartData(int TotalDemands, int InternalDemands, int ExternalContractDemands, int ExternalContracttoHireDemands, int ExternalRecruitDemands)
         {
-            var data = new List<DemandData>();
+            // Check Redis distributed cache first (replaces static collection)
+            var cacheKey = $"TrianzOperations:DemandTrend:GetPieChartData:{TotalDemands}:{InternalDemands}:{ExternalContractDemands}:{ExternalContracttoHireDemands}:{ExternalRecruitDemands}";
+            var cachedJson = RedisCacheHelper.StringGet(cacheKey);
+            if (!string.IsNullOrEmpty(cachedJson))
+            {
+                return JsonConvert.DeserializeObject<List<DemandData>>(cachedJson);
+            }
 
-            //data.Add(new DemandData("Draft", intdraft));
-            //data.Add(new DemandData("Submitted", intSubmitted));
-            //data.Add(new DemandData("Request More Info", Moreinfo));
-            //data.Add(new DemandData("Qualified", intQualified));
-            //data.Add(new DemandData("Converted to External", intExternal));
+            var data = new List<DemandData>();
 
             data.Add(new DemandData("Total No Of Demands", TotalDemands));
             data.Add(new DemandData("Internal Fullfilled", InternalDemands));
             data.Add(new DemandData("External Fullfilled", ExternalContractDemands));
             data.Add(new DemandData("External-Contract to Hire", ExternalContracttoHireDemands));
             data.Add(new DemandData("External-Recruit", ExternalRecruitDemands));
+
+            // Cache in Redis for shared access across instances
+            var json = JsonConvert.SerializeObject(data);
+            RedisCacheHelper.StringSet(cacheKey, json, TimeSpan.FromMinutes(15));
 
             return data;
         }
@@ -107,15 +125,24 @@ namespace Trianz.Enterprise.Operations.Models
 
         internal static object GetLineAreaChartDataMonth(List<monthdemandtest> monthlyDemand)
         {
-           
+            // Check Redis distributed cache first (replaces static collection)
+            var cacheKey = "TrianzOperations:DemandTrend:GetLineAreaChartDataMonth";
+            var cachedJson = RedisCacheHelper.StringGet(cacheKey);
+            if (!string.IsNullOrEmpty(cachedJson))
+            {
+                return JsonConvert.DeserializeObject<List<DemandData>>(cachedJson);
+            }
+
             var data = new List<DemandData>();
             
             for (int i = 0; i < monthlyDemand.Count; i++)
             {
-               
                 data.Add(new DemandData(Convert.ToString(monthlyDemand[i].Month), monthlyDemand[i].SubmittedRequestCount,monthlyDemand[i].DraftRequestCount,monthlyDemand[i].QualifiedRequestCount,monthlyDemand[i].FullFilledRequestCount));
-
             }
+
+            // Cache in Redis for shared access across instances
+            var json = JsonConvert.SerializeObject(data);
+            RedisCacheHelper.StringSet(cacheKey, json, TimeSpan.FromMinutes(15));
 
             return data;
         }

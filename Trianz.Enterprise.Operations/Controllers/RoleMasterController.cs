@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
@@ -153,7 +152,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 {
                     TempData.Keep("IsRoleMasterPageAccess");
 
-                    string pathValue = ConfigurationManager.AppSettings["RoleManagement"];
+                    string pathValue = ParameterStoreConfig.GetAppSetting("RoleManagement");
                     List<string> lst = new List<string>();
                     lst = pathValue.Split(',').ToList();
                     ViewData["Role"] = lst;
@@ -199,10 +198,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                  select r.EmployeeId).FirstOrDefault();
                     roleMaster.CreatedBy = Convert.ToInt64(empId.ToString());
 
-                    roleMaster.CreatedDate = DateTime.Now.Date;
+                    roleMaster.CreatedDate = DateTime.UtcNow.Date;
                     roleMaster.ModifiedBy = Convert.ToInt64(empId.ToString());
                     roleMaster.ApplicationCode = "TALENTREQ";
-                    roleMaster.ModifiedDate = DateTime.Now.Date;
+                    roleMaster.ModifiedDate = DateTime.UtcNow.Date;
                     db.RoleMasters.Add(roleMaster);
                     db.SaveChanges();
 
@@ -237,7 +236,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
-                    string pathValue = ConfigurationManager.AppSettings["RoleManagement"];
+                    string pathValue = ParameterStoreConfig.GetAppSetting("RoleManagement");
                     List<string> lst = new List<string>();
                     lst = pathValue.Split(',').ToList();
                     ViewData["_Role"] = lst;
@@ -290,7 +289,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                     var row = db.RoleMasters.Where(r => r.RoleId == roleMaster.RoleId && r.ApplicationCode == "TALENTREQ").FirstOrDefault();
                     row.ModifiedBy = Convert.ToInt64(empId.ToString());
-                    row.ModifiedDate = DateTime.Now;
+                    row.ModifiedDate = DateTime.UtcNow;
                     row.Practice = roleMaster.Practice;
                     row.Role = roleMaster.Role;
                     db.Entry(row).State = EntityState.Modified;

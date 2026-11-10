@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
+using Trianz.Enterprise.Operations.General;
 using Trianz.Enterprise.Operations.Models;
 
 namespace Trianz.Enterprise.Operations.ViewModel
@@ -10,7 +12,7 @@ namespace Trianz.Enterprise.Operations.ViewModel
     
     public class ResourceDashboardViewModel
     {
-        public static List<ProjectAssignments> ProjectAssignments;
+       
        
   
 
@@ -26,14 +28,25 @@ namespace Trianz.Enterprise.Operations.ViewModel
 
         internal static object GetLineAreaChartData(List<IGrouping<string, ProjectAssignment>> ProjectAssignment)
         {
+            // Check Redis distributed cache first (replaces in-memory collection)
+            var cacheKey = "TrianzOperations:ResourceDashboardViewModel:GetLineAreaChartData";
+            var cachedJson = RedisCacheHelper.StringGet(cacheKey);
+            if (!string.IsNullOrEmpty(cachedJson))
+            {
+                return JsonConvert.DeserializeObject<List<ResourceDashboardViewModel>>(cachedJson);
+            }
+
             var data = new List<ResourceDashboardViewModel>();
             var EmployeeData = new List<ResourceDashboardViewModel>();
 
             for (int i = 0; i < ProjectAssignment.Count; i++)
             {
                 data.Add(new ResourceDashboardViewModel(ProjectAssignment[i].Key, ProjectAssignment[i].ToList().Count));
-
             }
+
+            // Cache in Redis for shared access across instances
+            var json = JsonConvert.SerializeObject(data);
+            RedisCacheHelper.StringSet(cacheKey, json, TimeSpan.FromMinutes(15));
 
             return data;
         }

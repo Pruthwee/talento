@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -42,7 +41,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             Employee emp = db.Employees.Where(e => e.EmployeeId == EmployeeID).FirstOrDefault();
             if (emp != null)
             {
-                string NotYetApprove = "Submitted";//ConfigurationManager.AppSettings["Not Yet Approved"].ToString();
+                string NotYetApprove = "Submitted";//ParameterStoreConfig.GetAppSetting("Not Yet Approved").ToString();
                 string SkillApprove = "Approved";
 
                 //List<EmployeeSkills_NewDetails> empSkils = (from data in db.EmployeeSkills_New
@@ -142,7 +141,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                   }).FirstOrDefault();
                 Loginuser = Convert.ToInt32(EmployeeID.EmployeeId);
 
-                string status = IsApprove == true ? ConfigurationManager.AppSettings["Approved"].ToString() : ConfigurationManager.AppSettings["Rejected"].ToString();
+                string status = IsApprove == true ? ParameterStoreConfig.GetAppSetting("Approved").ToString() : ParameterStoreConfig.GetAppSetting("Rejected").ToString();
                 foreach (int id in SkillIds)
                 {
                     int emskillid = Convert.ToInt32(id);
@@ -156,12 +155,12 @@ namespace Trianz.Enterprise.Operations.Controllers
                     em.PreviousStatus = empskill.SkillStatus;
                     em.Comments = empskill.SkillStatus + " " + Remarks;
                     em.Expertiselevel = empskill.Expertiselevel;
-                    em.ModifiedDate = DateTime.Now;
+                    em.ModifiedDate = DateTime.UtcNow;
                     em.SkillID = empskill.SkillId;
                     em.TechnologyLastUsed = empskill.TechnologyLastUsed;
                     em.UpdateStatus = status;
                     em.ApproverID = Loginuser;
-                    em.ApprovalDate = DateTime.Now;
+                    em.ApprovalDate = DateTime.UtcNow;
                     db.EmployeeSkillHistories.Add(em);
 
                     empskill.SkillStatus = status;
@@ -181,8 +180,8 @@ namespace Trianz.Enterprise.Operations.Controllers
                         {
                             empskill.IsReviewed = true;
                             empskill.ReviewerId = Loginuser;
-                            empskill.LastReviewdDate = DateTime.Now;
-                            empskill.ApprovalDate = DateTime.Now;
+                            empskill.LastReviewdDate = DateTime.UtcNow;
+                            empskill.ApprovalDate = DateTime.UtcNow;
                             empskill.ApproverId = Loginuser;
                             //  db.EmployeeSkills_New.Add(empskill);
                         }
@@ -190,12 +189,12 @@ namespace Trianz.Enterprise.Operations.Controllers
                         {
                             empskill.IsReviewed = true;
                             empskill.ReviewerId = Loginuser;
-                            empskill.LastReviewdDate = DateTime.Now;
+                            empskill.LastReviewdDate = DateTime.UtcNow;
                         }
                     }
                     else if (empcount[0].SupervisorId == Loginuser)
                     {
-                        empskill.ApprovalDate = DateTime.Now;
+                        empskill.ApprovalDate = DateTime.UtcNow;
                         empskill.ApproverId = Loginuser;
                     }
                 }
@@ -204,27 +203,24 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                 Employee emp = db.Employees.Where(e => e.EmployeeId == EmployeeId).FirstOrDefault();
                 Notification tblNotification = new Notification();
-                tblNotification.NotificationType = ConfigurationManager.AppSettings["SkillApprovalResponse_NotificationType"].ToString() + status;
-                tblNotification.NotificationDate = System.DateTime.Now;
+                tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("SkillApprovalResponse_NotificationType").ToString() + status;
+                tblNotification.NotificationDate = System.DateTime.UtcNow;
                 tblNotification.NotificationFrom = emp.SupervisorId;
                 tblNotification.NotificationTo = emp.EmployeeId;
                 if (status.ToLower() == "rejected")
                 {
                     status = status + ". Remarks: " + Remarks;
                 }
-                var Body = ConfigurationManager.AppSettings["SkillApprovalResponse_NotificationMsg"].ToString() + status;
+                var Body = ParameterStoreConfig.GetAppSetting("SkillApprovalResponse_NotificationMsg").ToString() + status;
                 tblNotification.IsActive = true;
-                tblNotification.AssetID = ConfigurationManager.AppSettings["Skill_AppCode"];
-                tblNotification.ApplicationCode = ConfigurationManager.AppSettings["Skill_AppCode"].ToString();
+                tblNotification.AssetID = ParameterStoreConfig.GetAppSetting("Skill_AppCode");
+                tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("Skill_AppCode").ToString();
 
-                string talentoURL = ConfigurationManager.AppSettings["Talento"];
+                string talentoURL = ParameterStoreConfig.GetAppSetting("Talento");
                 string LinktoOpen = "Please Click on link to View the status of skills " + talentoURL;
                 string body = string.Empty;
 
-                using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
-                {
-                    body = reader.ReadToEnd();
-                }
+                body = CloudFileHelper.ReadAllText("~/Views/Shared/EmailTemplate.html");
                 body = body.Replace("{ToUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationTo).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                 body = body.Replace("{FromUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationFrom).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                 body = body.Replace("{Description}", Body);
@@ -233,7 +229,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 tblNotification.NotificationMessage = body;
 
 
-                string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+                string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
                 bool IsEmail = Convert.ToBoolean(IsEmailSent);
                 if (IsEmail == true)
                 {
@@ -273,7 +269,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         //                              }).FirstOrDefault();
         //            Loginuser = Convert.ToInt32(EmployeeID.EmployeeId);
 
-        //            string status = IsApprove == true ? ConfigurationManager.AppSettings["Approved"].ToString() : ConfigurationManager.AppSettings["Rejected"].ToString();
+        //            string status = IsApprove == true ? ParameterStoreConfig.GetAppSetting("Approved").ToString() : ParameterStoreConfig.GetAppSetting("Rejected").ToString();
         //            foreach (int id in SkillIds)
         //            {
         //                int emskillid = Convert.ToInt32(id);
@@ -302,7 +298,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         //            }
         //            Employee emp = db.Employees.Where(e => e.EmployeeId == EmployeeId).FirstOrDefault();
         //            Notification tblNotification = new Notification();
-        //            tblNotification.NotificationType = ConfigurationManager.AppSettings["SkillApprovalResponse_NotificationType"].ToString() + status;
+        //            tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("SkillApprovalResponse_NotificationType").ToString() + status;
         //            tblNotification.NotificationDate = System.DateTime.Now;
         //            tblNotification.NotificationFrom = emp.SupervisorId;
         //            tblNotification.NotificationTo = emp.EmployeeId;
@@ -310,12 +306,12 @@ namespace Trianz.Enterprise.Operations.Controllers
         //            {
         //                status = status + ". Remarks: " + Remarks;
         //            }
-        //            var Body = ConfigurationManager.AppSettings["SkillApprovalResponse_NotificationMsg"].ToString() + status;
+        //            var Body = ParameterStoreConfig.GetAppSetting("SkillApprovalResponse_NotificationMsg").ToString() + status;
         //            tblNotification.IsActive = true;
-        //            tblNotification.AssetID = ConfigurationManager.AppSettings["Skill_AppCode"];
-        //            tblNotification.ApplicationCode = ConfigurationManager.AppSettings["Skill_AppCode"].ToString();
+        //            tblNotification.AssetID = ParameterStoreConfig.GetAppSetting("Skill_AppCode");
+        //            tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("Skill_AppCode").ToString();
 
-        //            string talentoURL = ConfigurationManager.AppSettings["Talento"];
+        //            string talentoURL = ParameterStoreConfig.GetAppSetting("Talento");
         //            string LinktoOpen = "Please Click on link to View the status of skills " + talentoURL;
         //            string body = string.Empty;
 
@@ -331,7 +327,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         //            tblNotification.NotificationMessage = body;
 
 
-        //            string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+        //            string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
         //            bool IsEmail = Convert.ToBoolean(IsEmailSent);
         //            if (IsEmail == true)
         //            {

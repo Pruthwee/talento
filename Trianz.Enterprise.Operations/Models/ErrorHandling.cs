@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -27,7 +26,7 @@ namespace Trianz.Enterprise.Operations
         public void Error(Exception ex)
         {
             Trianz.Enterprise.Operations.Models.Error_Info elc = new Trianz.Enterprise.Operations.Models.Error_Info();
-            elc.Application = ConfigurationManager.AppSettings["ÄpplicationName"];
+            elc.Application = ParameterStoreConfig.GetAppSetting("ÄpplicationName");
             elc.Host = Dns.GetHostName();
             elc.Type = "Error";
             elc.Source = ex.Source != null ? ex.Source.ToString() : "";
@@ -36,7 +35,7 @@ namespace Trianz.Enterprise.Operations
             //elc.User = Convert.ToString(HttpContext.Current.User.Identity.Name.Split('\\')[1]);
             elc.User = Common.GetAzureLoggedInUserID().Split('@')[0];
 			elc.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-            elc.TimeUtc = DateTime.Now;
+            elc.TimeUtc = DateTime.UtcNow;
             Db.Error_Info.Add(elc);
             Db.SaveChanges();
         }

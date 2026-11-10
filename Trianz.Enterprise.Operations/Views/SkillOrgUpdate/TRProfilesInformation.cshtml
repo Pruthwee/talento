@@ -120,7 +120,7 @@
     <div class="row" style="display: flex; align-items: center;margin: 0;">
         <div class="col-sm-2 display">
             <label style="margin-right: 5px;">Date</label>  
-            @Html.TextBox("ExpectedEnd", "",  new { @class = "form-control", style = "width: 120px;", @Value = @DateTime.Now.ToString("dd-MMM-yyyy"), @readonly = "readonly" })
+            @Html.TextBox("ExpectedEnd", "",  new { @class = "form-control", style = "width: 120px;", @Value = @DateTime.UtcNow.ToString("dd-MMM-yyyy"), @readonly = "readonly" })
             @*<div class='input-group input-append date' id='datetimepicker2' style="width:120%;">
             <input type='text' name="ExpectedEnd" id="ExpectedEnd" style="width: 110px;"  class="form-control" data-error="Date should not be blank." required />
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>

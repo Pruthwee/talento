@@ -203,7 +203,7 @@
                                     Active
                                 </span>
                             }
-                            else if (Convert.ToDateTime(item.StartDate).Date > DateTime.Now.Date)
+                            else if (Convert.ToDateTime(item.StartDate).Date > DateTime.UtcNow.Date)
                             {
                                 <span id="lblisactive" class="display-mode">
                                     Not Yet Started

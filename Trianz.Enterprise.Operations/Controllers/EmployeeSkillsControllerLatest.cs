@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace Trianz.Enterprise.Operations.Controllers
         public IList<SelectListItem> GetYear()
         {
             int startingyear = 1990;
-            int numberOfYears = DateTime.Now.Year - startingyear;
+            int numberOfYears = DateTime.UtcNow.Year - startingyear;
             var startYear = startingyear;
             var endYear = startingyear + numberOfYears;
 
@@ -232,7 +231,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 var SkillsList = new List<SelectListItem>();
                 if (MasterLookUps != null)
                 {
-                    string Primaryskills = ConfigurationManager.AppSettings["PrimarySkills"].ToString();
+                    string Primaryskills = ParameterStoreConfig.GetAppSetting("PrimarySkills").ToString();
                     foreach (MasterLookUp item in MasterLookUps.OrderBy(p => p.LookupName).Where(x => x.LookupType == Primaryskills && x.ParentCode == CategorySeqId))
                     {
                         SkillsList.Add(new SelectListItem { Text = item.Description, Value = item.LookupID.ToString() });
@@ -255,7 +254,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 var SecSkillsList = new List<SelectListItem>();
                 if (MasterLookUps != null)
                 {
-                    string Secondaryskills = ConfigurationManager.AppSettings["SecondarySkills"].ToString();
+                    string Secondaryskills = ParameterStoreConfig.GetAppSetting("SecondarySkills").ToString();
                     foreach (MasterLookUp item in MasterLookUps.Where(x => x.LookupType == Secondaryskills && x.ParentCode == CategorySeqId))
                     {
                         SecSkillsList.Add(new SelectListItem { Text = item.Description, Value = item.LookupID.ToString() });
@@ -285,13 +284,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                     var SkillCategory = new List<SelectListItem>();
                     if (MasterLookUps != null)
                     {
-                        string SkillCategry = ConfigurationManager.AppSettings["SkillCategory"].ToString();
+                        string SkillCategry = ParameterStoreConfig.GetAppSetting("SkillCategory").ToString();
                         foreach (MasterLookUp item in MasterLookUps.Where(x => x.LookupType == SkillCategry))
                         {
                             SkillCategory.Add(new SelectListItem() { Text = item.Description, Value = item.SeqNumber.ToString() });
                         }
                     }
-                    string exp = ConfigurationManager.AppSettings["ExpFrom"].ToString();
+                    string exp = ParameterStoreConfig.GetAppSetting("ExpFrom").ToString();
                     var ExpFrom = from expFrom in MasterLookUps.Where(x => x.LookupType == exp)
                                   select new
                                   {
@@ -468,7 +467,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     EmpPrimarySkills.MasterLookUp = MLookup;
                                     EmpPrimarySkills.Rating = Convert.ToInt32(PSkill.Split(':')[1]);
                                     EmpPrimarySkills.SkillDescription = MLookup.Description;
-                                    EmpPrimarySkills.Status = ConfigurationManager.AppSettings["Not Yet Approved"].ToString();
+                                    EmpPrimarySkills.Status = ParameterStoreConfig.GetAppSetting("Not Yet Approved").ToString();
                                     db.EmployeeSkills.Add(EmpPrimarySkills);
                                     CanNotify = true;
                                 }
@@ -491,7 +490,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     EmpSecondarySkills.Rating = Convert.ToInt32(SSkill.Split(':')[1]);
                                     EmpSecondarySkills.MasterLookUp = MsLookup;
                                     EmpSecondarySkills.SkillDescription = MsLookup.Description;
-                                    EmpSecondarySkills.Status = ConfigurationManager.AppSettings["Not Yet Approved"].ToString();
+                                    EmpSecondarySkills.Status = ParameterStoreConfig.GetAppSetting("Not Yet Approved").ToString();
                                     db.EmployeeSkills.Add(EmpSecondarySkills);
                                     CanNotify = true;
                                 }
@@ -500,29 +499,26 @@ namespace Trianz.Enterprise.Operations.Controllers
                             {
                                 //Notification 
                                 Notification tblNotification = new Notification();
-                                tblNotification.NotificationType = ConfigurationManager.AppSettings["SkillApprovalRequest_NotificationType"].ToString();
-                                tblNotification.NotificationDate = System.DateTime.Now;
+                                tblNotification.NotificationType = ParameterStoreConfig.GetAppSetting("SkillApprovalRequest_NotificationType").ToString();
+                                tblNotification.NotificationDate = System.DateTime.UtcNow;
                                 tblNotification.NotificationFrom = employee.EmployeeId;
                                 tblNotification.NotificationTo = employee.SupervisorId;
-                                var Body = ConfigurationManager.AppSettings["SkillApprovalRequest_Notification"].ToString() + employee.FirstName + " " + employee.LastName;
+                                var Body = ParameterStoreConfig.GetAppSetting("SkillApprovalRequest_Notification").ToString() + employee.FirstName + " " + employee.LastName;
                                 tblNotification.IsActive = true;
-                                tblNotification.AssetID = ConfigurationManager.AppSettings["Skill_AppCode"];
-                                tblNotification.ApplicationCode = ConfigurationManager.AppSettings["Skill_AppCode"].ToString();
+                                tblNotification.AssetID = ParameterStoreConfig.GetAppSetting("Skill_AppCode");
+                                tblNotification.ApplicationCode = ParameterStoreConfig.GetAppSetting("Skill_AppCode").ToString();
 
-                                string talentoURL = ConfigurationManager.AppSettings["Talento"];
+                                string talentoURL = ParameterStoreConfig.GetAppSetting("Talento");
                                 string LinktoOpen = "Please Click on link to View the skills submitted for Approval " + talentoURL;
                                 string body = string.Empty;
-                                using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Shared/EmailTemplate.html")))
-                                {
-                                    body = reader.ReadToEnd();
-                                }
+                                body = CloudFileHelper.ReadAllText("~/Views/Shared/EmailTemplate.html");
                                 body = body.Replace("{ToUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationTo).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                                 body = body.Replace("{FromUserName}", db.Employees.Where(e => e.EmployeeId == tblNotification.NotificationFrom).Select(s => s.FirstName + " " + s.LastName).FirstOrDefault());
                                 body = body.Replace("{Description}", Body);
                                 body = body.Replace("{LinktoOpen}", LinktoOpen);
 
                                 tblNotification.NotificationMessage = body;
-                                string IsEmailSent = System.Configuration.ConfigurationManager.AppSettings["IsEmailSent"].ToString();
+                                string IsEmailSent = ParameterStoreConfig.GetAppSetting("IsEmailSent").ToString();
                                 bool IsEmail = Convert.ToBoolean(IsEmailSent);
                                 if (IsEmail == true)
                                 {
@@ -654,7 +650,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         {
 
                             // Create a unique filename for the ZIP archive.
-                            string zipFileName = "MultipleFiles_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".zip";
+                            string zipFileName = "MultipleFiles_" + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + ".zip";
 
                             // Set the content type to ZIP.
                             //  Response.ContentType = "application/zip";
@@ -1199,7 +1195,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             emt.Expertiselevel = Expertise;
                             emt.TechnologyLastUsed = Mont + "," + Year;
                             emt.EmployeeId = EmpId;
-                            emt.LastModifiedDate = DateTime.Now;
+                            emt.LastModifiedDate = DateTime.UtcNow;
                             emt.IsPrimary = IsPrimary;
                             db.EmployeeSkills_New.Add(emt);
 
@@ -1223,7 +1219,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     em.PreviousStatus = _empskill.SkillStatus;
                                     em.Comments = _empskill.SkillStatus + " Skill Updated";
                                     em.Expertiselevel = Expertise;
-                                    em.ModifiedDate = DateTime.Now;
+                                    em.ModifiedDate = DateTime.UtcNow;
                                     em.SkillID = skilid;
                                     em.TechnologyLastUsed = Mont + "," + Year;
                                     em.UpdateStatus = "Modified";
@@ -1234,7 +1230,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                 }
                                 _empskill.SkillId = skilid;
                                 _empskill.TechnologyLastUsed = Mont + "," + Year;
-                                _empskill.LastModifiedDate = DateTime.Now;
+                                _empskill.LastModifiedDate = DateTime.UtcNow;
                                 _empskill.Expertiselevel = Expertise;
                                 _empskill.IsPrimary = IsPrimary;
                             }
@@ -1368,7 +1364,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     em.PreviousStatus = skil[0].SkillStatus;
                                     em.Comments = "Skill Submitted";
                                     em.Expertiselevel = skil[0].Expertiselevel;
-                                    em.ApprovalSubmissionDate = DateTime.Now;
+                                    em.ApprovalSubmissionDate = DateTime.UtcNow;
                                     em.IsPrimary = skil[0].IsPrimary;
                                     em.SkillID = skil[0].SkillId;
                                     em.TechnologyLastUsed = skil[0].TechnologyLastUsed;
@@ -1376,7 +1372,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     db.EmployeeSkillHistories.Add(em);
 
                                     skil[0].SkillStatus = "Submitted";
-                                    skil[0].ApprovalSubmissionDate = DateTime.Now;
+                                    skil[0].ApprovalSubmissionDate = DateTime.UtcNow;
                                     db.SaveChanges();
                                 }
                             }
@@ -1403,13 +1399,13 @@ namespace Trianz.Enterprise.Operations.Controllers
         }
         public FileResult DownloadTrianzResumeTemplate()
         {
-            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath(@"~\Content\Document\Trianz Resume Template - 2016.docx"));
+            byte[] fileBytes = CloudFileHelper.ReadAllBytes(@"~\Content\Document\Trianz Resume Template - 2016.docx");
             string fileName = "Trianz Resume Template - 2016.docx";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
         public FileResult DownloadTrianzProfileTemplate()
         {
-            byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath(@"~\Content\Document\Trianz Profile Template-2016.pptx"));
+            byte[] fileBytes = CloudFileHelper.ReadAllBytes(@"~\Content\Document\Trianz Profile Template-2016.pptx");
             string fileName = "Trianz Profile Template-2016.pptx";
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
@@ -1590,7 +1586,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             var EmployeeWiseDomain = new EmployeeWiseDomain();
                             EmployeeWiseDomain.EmployeeID = EmpId;
                             EmployeeWiseDomain.DomainID = id;
-                            EmployeeWiseDomain.CreatedDate = DateTime.Now;
+                            EmployeeWiseDomain.CreatedDate = DateTime.UtcNow;
                             db.EmployeeWiseDomains.Add(EmployeeWiseDomain);
 
                             db.SaveChanges();
@@ -1784,7 +1780,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                             var EmployeeWiseIndustry = new EmployeeWiseIndustry();
                             EmployeeWiseIndustry.EmployeeID = EmpId;
                             EmployeeWiseIndustry.IndustryID = id;
-                            EmployeeWiseIndustry.CreatedDate = DateTime.Now;
+                            EmployeeWiseIndustry.CreatedDate = DateTime.UtcNow;
                             db.EmployeeWiseIndustries.Add(EmployeeWiseIndustry);
 
                             db.SaveChanges();

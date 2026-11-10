@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections;
 using Trianz.Enterprise.Operations.Models;
-using System.Configuration;
+using Trianz.Enterprise.Operations.General;
 
 namespace Trianz.Enterprise.Operations.Controllers
 {
@@ -37,18 +37,18 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     
                                     select DemandCount).Count();
             var InternalDemands = (from InternalDemand in db.HRRFs.AsEnumerable()
-                                    where InternalDemand.RequestStatus == ConfigurationManager.AppSettings["Internal"]
+                                    where InternalDemand.RequestStatus == ParameterStoreConfig.GetAppSetting("Internal")
                                    select InternalDemand).Count();
             var ExternalContractDemands = (from ExternalContract in db.HRRFs.AsEnumerable()
-                                    where ExternalContract.RequestStatus == ConfigurationManager.AppSettings["ExternalCon"]
+                                    where ExternalContract.RequestStatus == ParameterStoreConfig.GetAppSetting("ExternalCon")
                                            select ExternalContract).Count();
             var ExternalContracttoHireDemands = (from ExternalContracttoHire in db.HRRFs.AsEnumerable()
-                                    where ExternalContracttoHire.RequestStatus == ConfigurationManager.AppSettings["ExternalConHire"]
+                                    where ExternalContracttoHire.RequestStatus == ParameterStoreConfig.GetAppSetting("ExternalConHire")
                                                  select ExternalContracttoHire).Count();
             var ExternalRecruitDemands = (from ExternalRecruit in db.HRRFs.AsEnumerable()
-                                          where ExternalRecruit.RequestStatus == ConfigurationManager.AppSettings["ExternalRecruit"]
+                                          where ExternalRecruit.RequestStatus == ParameterStoreConfig.GetAppSetting("ExternalRecruit")
                                           select ExternalRecruit).Count();
-            var todaydate = DateTime.Now.Year;
+            var todaydate = DateTime.UtcNow.Year;
 
             // List<HRRF> MonthlyDemand = new List<HRRF>();
             List<MasterLookUp> MasterLookUps = db.MasterLookUps.ToList();
@@ -81,10 +81,10 @@ namespace Trianz.Enterprise.Operations.Controllers
                                               
 
                                               // month=Convert.ToDateTime(d.Key.months).ToString("MMM"),
-                                              FullFilledCount = d.Where(c => c.RequestStatus == ConfigurationManager.AppSettings["Fulfilled"]).Count(),
-                                              QualifiedCount = d.Where(c => c.RequestStatus == ConfigurationManager.AppSettings["Qualified"]).Count(),
-                                              SubmittedCount = d.Where(c => c.RequestStatus == ConfigurationManager.AppSettings["Submitted"]).Count(),
-                                              DraftCount = d.Where(c => c.RequestStatus == ConfigurationManager.AppSettings["Draft"]).Count(),
+                                              FullFilledCount = d.Where(c => c.RequestStatus == ParameterStoreConfig.GetAppSetting("Fulfilled")).Count(),
+                                              QualifiedCount = d.Where(c => c.RequestStatus == ParameterStoreConfig.GetAppSetting("Qualified")).Count(),
+                                              SubmittedCount = d.Where(c => c.RequestStatus == ParameterStoreConfig.GetAppSetting("Submitted")).Count(),
+                                              DraftCount = d.Where(c => c.RequestStatus == ParameterStoreConfig.GetAppSetting("Draft")).Count(),
                                           };
 
             List<DemandData.monthdemandtest> listmonth = new List<DemandData.monthdemandtest>();

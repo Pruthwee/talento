@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Trianz.Enterprise.Operations.Models;
-using System.Configuration;
+using Trianz.Enterprise.Operations.General;
 using System.Web.Helpers;
 
 namespace Trianz.Enterprise.Operations.Controllers
@@ -20,7 +20,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             TempData["IsRoleMasterPageAccess"] = null;
 
             List<ProposeAssociate> listpropose = new List<ProposeAssociate>();
-            List<string> liststatus = new List<string>() {ConfigurationManager.AppSettings["App"].ToString(), ConfigurationManager.AppSettings["Rej"].ToString(), ConfigurationManager.AppSettings["Pro"].ToString() };
+            List<string> liststatus = new List<string>() {ParameterStoreConfig.GetAppSetting("App").ToString(), ParameterStoreConfig.GetAppSetting("Rej").ToString(), ParameterStoreConfig.GetAppSetting("Pro").ToString() };
             ViewBag.CurrentSort = sortOrder;
             //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "HRRF Number desc" : "";
             ViewData["Status"] = liststatus;

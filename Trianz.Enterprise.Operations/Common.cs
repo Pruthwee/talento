@@ -103,7 +103,7 @@ namespace Trianz.Enterprise.Operations.General
             try
             {
                 sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\TalentoLog.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + ": " + ex.Source.ToString().Trim() + "; " + ex.Message.ToString().Trim());
+                sw.WriteLine(DateTime.UtcNow.ToString() + ": " + ex.Source.ToString().Trim() + "; " + ex.Message.ToString().Trim());
                 sw.Flush();
                 sw.Close();
             }
@@ -125,7 +125,7 @@ namespace Trianz.Enterprise.Operations.General
             try
             {
                 sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\TalentoLog.txt", true);
-                sw.WriteLine(DateTime.Now.ToString() + ": " + Message);
+                sw.WriteLine(DateTime.UtcNow.ToString() + ": " + Message);
                 sw.Flush();
                 sw.Close();
             }

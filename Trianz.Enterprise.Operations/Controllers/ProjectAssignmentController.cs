@@ -9,7 +9,6 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Trianz.Enterprise.Operations.Models;
 using DocumentFormat.OpenXml.Wordprocessing;
-using System.Configuration;
 using Trianz.Enterprise.Operations.General;
 
 namespace Trianz.Enterprise.Operations.Controllers
@@ -98,7 +97,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     {
                         var _ProjectNames = (from projects in _db.Projects.
                                              //Where(p => p.ProjectManagerId == empID && p.IsActive == true)
-                                             Where(p => p.ProjectManagerId == empID && p.IsActive == true && p.SOWEndDate >= DateTime.Now)
+                                             Where(p => p.ProjectManagerId == empID && p.IsActive == true && p.SOWEndDate >= DateTime.UtcNow)
                                              select new
                                              {
                                                  ProjectName = projects.ProjectCode + "-" + projects.ProjectName,
@@ -192,7 +191,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 {
                     var _AllProjectNames = (from projects in _db.Projects.
                                            //  Where(p => p.IsActive == true)
-                                             Where(p => p.IsActive == true && p.SOWEndDate >= DateTime.Now)
+                                             Where(p => p.IsActive == true && p.SOWEndDate >= DateTime.UtcNow)
                                             select new
                                             {
                                                 ProjectName = projects.ProjectCode + "-" + projects.ProjectName,
@@ -273,7 +272,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 {
                     var _AllProjectNames = (from projects in _db.Projects.
                                            // Where(p => p.DELIVERY_MANAGER_ID == empID && p.IsActive == true)
-                                            Where(p => p.DELIVERY_MANAGER_ID == empID && p.IsActive == true && p.SOWEndDate >= DateTime.Now)
+                                            Where(p => p.DELIVERY_MANAGER_ID == empID && p.IsActive == true && p.SOWEndDate >= DateTime.UtcNow)
                                             select new
                                             {
                                                 ProjectName = projects.ProjectCode + "-" + projects.ProjectName,
@@ -749,7 +748,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 {
 
                     var result = new List<KeyValuePair<string, string>>();
-                    DateTime currentDate = System.DateTime.Now.Date;
+                    DateTime currentDate = System.DateTime.UtcNow.Date;
                     IList<SelectListItem> List = new List<SelectListItem>();
 
                     var Projects = (from pro in _db.Employees
@@ -990,7 +989,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         foreach (var ut in unass)
                         {
                             ut.IsActive = false;
-                            ut.EndDate = DateTime.Now;
+                            ut.EndDate = DateTime.UtcNow;
                             _db.Entry(ut).State = System.Data.Entity.EntityState.Modified;
                         }
 
@@ -1003,7 +1002,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         prj.EndDate = DendDate;
                         prj.IsActive = sta;
                         prj.Assigned_By = Projectmanger;
-                        prj.Assigned_Date = DateTime.Now;
+                        prj.Assigned_Date = DateTime.UtcNow;
                         prj.BillingStatus = BillingStatus;
                         prj.Utilization = utli;
                         _db.ProjectAssignments.Add(prj);
@@ -1082,9 +1081,9 @@ namespace Trianz.Enterprise.Operations.Controllers
                         //else if (Status.ToLower() != "true" && preprj.Count == 0)
                         //else if (preprj.Count == 0)
                         // isprjexst = false;
-                        DateTime dts = Convert.ToDateTime(DateTime.Now.Date);
+                        DateTime dts = Convert.ToDateTime(DateTime.UtcNow.Date);
                         if (dtEndDate > dts)
-                            dts = Convert.ToDateTime(DateTime.Now.Date).AddDays(1);
+                            dts = Convert.ToDateTime(DateTime.UtcNow.Date).AddDays(1);
 
                         if (isprjexst)
                         {
@@ -1201,7 +1200,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     pash.StartDateOld = projAssignment.StartDate;
                                     pash.UtilizationOld = projAssignment.Utilization;
                                     pash.modifiedBy = empID;
-                                    pash.ModifiedDate = DateTime.Now;
+                                    pash.ModifiedDate = DateTime.UtcNow;
                               
                                     projAssignment.StartDate = DstartDate;
                                 //  projAssignment.EndDate = DendDate;
@@ -1225,11 +1224,11 @@ namespace Trianz.Enterprise.Operations.Controllers
                                     projAssignment.BillingStatus = BillingStatus;
                                     projAssignment.Utilization = utli;
                                     projAssignment.IsActive = Convert.ToBoolean(Status);
-                                    if (DateTime.Now.Date.Equals(Convert.ToDateTime(DstartDate).Date))
+                                    if (DateTime.UtcNow.Date.Equals(Convert.ToDateTime(DstartDate).Date))
                                     {
                                         projAssignment.IsActive = true;
                                     }
-                                    projAssignment.Assigned_Date = DateTime.Now;
+                                    projAssignment.Assigned_Date = DateTime.UtcNow;
 
 
                                     pash.UtilizationNew = projAssignment.Utilization;
@@ -1260,13 +1259,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                                             pash.StartDateOld = lt.StartDate;
                                             pash.UtilizationOld = lt.Utilization;
                                             pash.modifiedBy = empID;
-                                            pash.ModifiedDate = DateTime.Now;
+                                            pash.ModifiedDate = DateTime.UtcNow;
 
 
                                             #region Exisitng Bench Record Update based on selected Dates
                                             // Selecting top 1 Start Date order by desc to Set Bench Enda date
                                             int? ul = null;
-                                            if (DateTime.Now.Date.Equals(Convert.ToDateTime(DstartDate).Date))
+                                            if (DateTime.UtcNow.Date.Equals(Convert.ToDateTime(DstartDate).Date))
                                             {
 
                                                 ul = lt.Utilization - Convert.ToInt32(utli);
@@ -1283,7 +1282,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 lt.EndDate = Convert.ToDateTime(dtProjectAssignSatrtAsEndDate);
                                             }
                                             else if (dtProjectAssignEndDate != null && dtProjectAssignEndDate <= dtEndDate
-                                                && DateTime.Now.Date.Equals(dtStartDate.Date))
+                                                && DateTime.UtcNow.Date.Equals(dtStartDate.Date))
                                             {
 
                                                 if (Convert.ToDateTime(dtStartDate) < dtProjectAssignEndDate)
@@ -1291,7 +1290,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                                                 else
                                                     lt.EndDate = Convert.ToDateTime(dtProjectAssignEndDate);
                                             }
-                                            else if (DateTime.Now.Date >= (dtStartDate.Date))
+                                            else if (DateTime.UtcNow.Date >= (dtStartDate.Date))
                                             {
                                                 lt.EndDate = dtEndDate;
                                                 if (ul > 0)
@@ -1681,7 +1680,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
 
                 //   int empID = (int)Session["EmployeeId"];
-                string authorizedUser = ConfigurationManager.AppSettings["businessGroupId"];
+                string authorizedUser = ParameterStoreConfig.GetAppSetting("businessGroupId");
                 bool isAuthorised = false;
                 if (authorizedUser != null && authorizedUser != "")
                 {
@@ -1808,7 +1807,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
                 DateTime stdt = DateTime.ParseExact(stDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 DateTime enddt = DateTime.ParseExact(endDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                var todaysDate = DateTime.Today;
+                var todaysDate = DateTime.UtcNow.Date;
 
                 if (enddt < todaysDate || isActive == "false")
                 {
@@ -1861,7 +1860,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                     
                 }
-                data.Assigned_Date = DateTime.Now;
+                data.Assigned_Date = DateTime.UtcNow;
                 _db.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -1905,7 +1904,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                 IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
                 DateTime stdt = DateTime.ParseExact(stDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 DateTime enddt = DateTime.ParseExact(endDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                var todaysDate = DateTime.Today;
+                var todaysDate = DateTime.UtcNow.Date;
 
                 if (enddt < todaysDate || isActive == "false")
                 {
@@ -1968,13 +1967,13 @@ namespace Trianz.Enterprise.Operations.Controllers
                             if (Convert.ToInt32(utilization) == existingProject.Utilization)
                             {
                                 existingProject.IsActive = false;
-                                existingProject.Assigned_Date = DateTime.Now;
+                                existingProject.Assigned_Date = DateTime.UtcNow;
                             }
                             else if ((Convert.ToInt32(utilization) < existingProject.Utilization))
                             {
 
                                 existingProject.Utilization = existingProject.Utilization - Convert.ToInt32(utilization);
-                                existingProject.Assigned_Date = DateTime.Now;
+                                existingProject.Assigned_Date = DateTime.UtcNow;
                             }
                             _db.SaveChanges();
                         }
@@ -1996,7 +1995,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                     Bechstatus = billingStatus.Trim() == "Bench" ?  "Free Pool" : null,
                     IsActive = isActiveProject,
                     BillingStatus = billingStatus,
-                    Assigned_Date = DateTime.Now,
+                    Assigned_Date = DateTime.UtcNow,
                     Assigned_By = projectManagerName
                 };
               
@@ -2131,7 +2130,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
                 {
                     var result = new List<KeyValuePair<string, string>>();
-                    DateTime currentDate = System.DateTime.Now.Date;
+                    DateTime currentDate = System.DateTime.UtcNow.Date;
                     IList<SelectListItem> List = new List<SelectListItem>();
 
                     var Projects = (from pro in _db.Employees
@@ -2575,7 +2574,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         Byte[] fileBytes = package.GetAsByteArray();
                         Response.Clear();
                         Response.Buffer = true;
-                        Response.AddHeader("content-disposition", "attachment;filename=" + ((strProject == "") ? "My" : strProject) + "-Project Report" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                        Response.AddHeader("content-disposition", "attachment;filename=" + ((strProject == "") ? "My" : strProject) + "-Project Report" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                         Response.Charset = "";
                         Response.ContentType = "application/vnd.ms-excel";
@@ -2807,7 +2806,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         Byte[] fileBytes = package.GetAsByteArray();
                         Response.Clear();
                         Response.Buffer = true;
-                        Response.AddHeader("content-disposition", "attachment;filename=" + ((strProject == "") ? "My" : strProject) + "-Project Report" + DateTime.Now.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
+                        Response.AddHeader("content-disposition", "attachment;filename=" + ((strProject == "") ? "My" : strProject) + "-Project Report" + DateTime.UtcNow.ToString("_dd-MMM-yyyy_hh-mm-ss") + ".xlsx");
 
                         Response.Charset = "";
                         Response.ContentType = "application/vnd.ms-excel";

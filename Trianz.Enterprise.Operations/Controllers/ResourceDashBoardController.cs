@@ -9,8 +9,6 @@ using System.Linq;
 using System.Web.Helpers;
 using System.Configuration;
 using System.Web.Mvc;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Trianz.Enterprise.Operations.General;
 using Trianz.Enterprise.Operations.Models;
 using Trianz.Enterprise.Operations.ViewModel;
@@ -146,7 +144,7 @@ namespace Trianz.Enterprise.Operations.Controllers
             DeliveryManagerId = (from P in db.Projects
                                  where P.DELIVERY_MANAGER_ID == empId && P.IsActive == true
                                  select P.DELIVERY_MANAGER_ID).FirstOrDefault();
-            List<string> dashBoardViewers = System.Configuration.ConfigurationManager.AppSettings["ITSDashboardViewers"].Split(',').ToList();
+            List<string> dashBoardViewers = ParameterStoreConfig.GetAppSetting("ITSDashboardViewers").Split(',').ToList();
 
             //bool IsValid1 = lstAccessRoles.Where(e => empId.Contains(e)).Any();
             bool flag = dashBoardViewers.Contains(empId.ToString());
@@ -413,7 +411,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         worksheet.DefaultRowHeight = 18f;
                         worksheet.Row(1).Height = 20f;
 
-                        List<string> lstOpsStatus = System.Configuration.ConfigurationManager.AppSettings["OpsStatus"].Split(',').ToList();
+                        List<string> lstOpsStatus = ParameterStoreConfig.GetAppSetting("OpsStatus").Split(',').ToList();
 
                         bool IsValid = lstOpsStatus.Where(e => Session["EmployeeId"].ToString().Contains(e)).Any();
                         //int nocloumn = 46;
@@ -879,7 +877,7 @@ namespace Trianz.Enterprise.Operations.Controllers
                         Byte[] fileBytes = package.GetAsByteArray();
                         Response.Clear();
                         Response.Buffer = true;
-                        Response.AddHeader("content-disposition", "attachment;filename=ITS Resource Dashboard " + DateTime.Now.ToString("dd MMM yyyy") + ".xlsx");
+                        Response.AddHeader("content-disposition", "attachment;filename=ITS Resource Dashboard " + DateTime.UtcNow.ToString("dd MMM yyyy") + ".xlsx");
                         Response.Charset = "";
                         Response.ContentType = "application/vnd.ms-excel";
                         StringWriter sw = new StringWriter();
@@ -1027,7 +1025,7 @@ namespace Trianz.Enterprise.Operations.Controllers
 
             //byte[] fileContents = Encoding.UTF8.GetBytes(xml);
 
-            string attachment = "attachment; filename=FulfillmentReview" + DateTime.Now.ToString("dd/MM/yyyy") + ".xls";
+            string attachment = "attachment; filename=FulfillmentReview" + DateTime.UtcNow.ToString("dd/MM/yyyy") + ".xls";
             Response.ClearContent();
             Response.AddHeader("content-disposition", attachment);
             Response.ContentType = "application/vnd.ms-excel";

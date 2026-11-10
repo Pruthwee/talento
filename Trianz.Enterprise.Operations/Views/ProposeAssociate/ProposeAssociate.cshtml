@@ -1691,7 +1691,7 @@ else if (TempData["Message"] != null)
                                 {
                                     @*<p>Bill Rate: @Html.Label(modelItem.BILLRATE.ToString())</p>*@
                                     @*<p>Bill Rate: @Html.Label(Decimal.TryParse(modelItem.BILLRATE.ToString()))</p>*@
-                                    <p>Bill Rate: <b style="margin-left:116px" ;>@Html.Raw(Convert.ToDecimal(modelItem.BILLRATE).ToString("0.00")) </b></p>
+                                    <p>Bill Rate: <b style="margin-left:116px" ;>@HtmlSanitizerHelper.Sanitize(Convert.ToDecimal(modelItem.BILLRATE).ToString("0.00")) </b></p>
 
                                 }
                                 else
